@@ -51,7 +51,7 @@ export class SignUpForm extends React.Component {
                     <Form.Control type="text" name="last-name" onChange={event => this.setState({ lastName: event.target.value })}/>
                 </Form.Group>
 
-                <Form.Group controlId="company">
+                <Form.Group controlId="company" onChange={event => this.setState({ company: event.target.value })}>
                     <Form.Label>Company</Form.Label>
                     <Form.Control as="select" name="company">
                         {
