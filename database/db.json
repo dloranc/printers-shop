@@ -1,0 +1,138 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "firstName": "John",
+      "lastName": "Smith",
+      "email": "john.s@ibm.com",
+      "password": "mynameisjohn1",
+      "role": "user",
+      "companyId": "company-1"
+    },
+    {
+      "id": "user-2",
+      "firstName": "Tom",
+      "lastName": "Johns",
+      "email": "tom.j@ibm.com",
+      "password": "mynameistom2",
+      "role": "user",
+      "companyId": "company-1"
+    },
+    {
+      "id": "user-3",
+      "firstName": "Ben",
+      "lastName": "Morrison",
+      "email": "ben.m@apple.com",
+      "password": "mynameisben",
+      "role": "user",
+      "companyId": "company-2"
+    },
+    {
+      "id": "user-4",
+      "firstName": "Mark",
+      "lastName": "Spencer",
+      "email": "mark.s@our_company.com",
+      "password": "marktheadmin4",
+      "role": "admin",
+      "companyId": ""
+    }
+  ],
+  "products": [
+    {
+      "id": "product-1",
+      "type": "Printer",
+      "name": "ZX3",
+      "price": "400",
+      "inStock": "30"
+    },
+    {
+      "id": "product-2",
+      "type": "Printer",
+      "name": "ZX5",
+      "price": "600",
+      "inStock": "5"
+    },
+    {
+      "id": "product-3",
+      "type": "Printer",
+      "name": "ZX1",
+      "price": "200",
+      "inStock": "50"
+    },
+    {
+      "id": "product-4",
+      "type": "Fax",
+      "name": "F2",
+      "price": "45",
+      "inStock": "250"
+    },
+    {
+      "id": "product-5",
+      "type": "Fax",
+      "name": "F4",
+      "price": "50",
+      "inStock": "180"
+    }
+  ],
+  "companies": [
+    {
+      "id": "company-1",
+      "name": "IBM",
+      "usersIds": [
+        "user-1",
+        "user-2"
+      ]
+    },
+    {
+      "id": "company-2",
+      "name": "Apple",
+      "usersIds": [
+        "user-3"
+      ]
+    }
+  ],
+  "orderPositions": [
+    {
+      "id": "orderPosition-1",
+      "productId": "product-2",
+      "amount": "3",
+      "pricePerUnit": "600",
+      "totalPrice": "1800"
+    },
+    {
+      "id": "orderPosition-2",
+      "productId": "product-5",
+      "amount": "10",
+      "pricePerUnit": "50",
+      "totalPrice": "500"
+    },
+    {
+      "id": "orderPosition-3",
+      "productId": "product-1",
+      "amount": "5",
+      "pricePerUnit": "400",
+      "totalPrice": "2000"
+    }
+  ],
+  "orders": [
+    {
+      "id": "order-1",
+      "userId": "user-2",
+      "orderPositionIds": [
+        "orderPosition-1",
+        "orderPosition-2"
+      ],
+      "status": "realized",
+      "totalPrice": "2300"
+    },
+    {
+      "id": "order-2",
+      "userId": "user-3",
+      "orderPositionIds": [
+        "orderPosition-3"
+      ],
+      "status": "in-progress",
+      "totalPrice": "2000"
+    }
+  ]
+}
