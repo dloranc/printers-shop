@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 import SignUpFormScreen from './screens/SignUp/Form';
-import Home from './components/Home';
-import NoMatch from './components/NoMatch';
+import Home from './screens/Home';
+import NoMatch from './screens/NoMatch';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
