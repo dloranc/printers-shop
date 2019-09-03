@@ -1,24 +1,31 @@
 import React from 'react';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+
+const schema = yup.object({
+    email: yup.string().email('Email must be a valid email').required('Email is required'),
+    firstName: yup.string().required('First name is a required field'),
+    lastName: yup.string().required('Last name is a required field'),
+    company: yup.string().required('Select a company'),
+    password: yup.string().min(8, 'The password must be at least 8 characters').required('Password is required'),
+    confirmPassword: yup.string().required('You have to confirm password').oneOf(
+        [yup.ref('password')],
+        `Passwords don't match`
+    ),
+});
 
 export class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            email: '',
-            firstName: '',
-            company: '',
-            lastName: '',
-            password: '',
-            confirmPassword: '',
-
             companies: []
         };
 
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -33,63 +40,146 @@ export class SignUpForm extends React.Component {
         });
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
+    handleFormSubmit(values, actions) {
+        // TODO Redirect to /shop
     }
 
     render() {
         return (
-            <Form>
-                <h2>Sign Up</h2>
+            <Formik
+                initialValues={{
+                    email: '',
+                    firstName: '',
+                    lastName: '',
+                    company: '',
+                    password: '',
+                    confirmPassword: '',
+                }}
+                validationSchema={schema}
+                onSubmit={this.handleFormSubmit}
+                render={(
+                    {
+                        handleSubmit,
+                        handleChange,
+                        values,
+                        errors,
+                        isSubmitting,
+                    }
+                ) => (
+                    <Form noValidate onSubmit={handleSubmit}>
+                        <h2>Sign Up</h2>
 
-                <Form.Group controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" name="email" onChange={this.handleInputChange}/>
-                </Form.Group>
+                        <Form.Group controlId="email">
+                            <Form.Label>Email</Form.Label>
 
-                <Form.Group controlId="firstName">
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control type="text" name="firstName" onChange={this.handleInputChange}/>
-                </Form.Group>
+                            <Form.Control
+                                type="email"
+                                name="email"
+                                value={values.email}
+                                onChange={handleChange}
+                                isInvalid={!!errors.email}
+                            />
 
-                <Form.Group controlId="lastName">
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control type="text" name="lastName" onChange={this.handleInputChange}/>
-                </Form.Group>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.email}
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
-                <Form.Group controlId="company" onChange={this.handleInputChange}>
-                    <Form.Label>Company</Form.Label>
-                    <Form.Control as="select" name="company">
-                        {
-                            this.state.companies.map(company => {
-                                return (
-                                    <option key={company.id} value={company.id}>
-                                        {company.name}
-                                    </option>
-                                )
-                            }
-                        )}
-                    </Form.Control>
-                </Form.Group>
+                        <Form.Group controlId="firstName">
+                            <Form.Label>First name</Form.Label>
 
-                <Form.Group controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="password" onChange={this.handleInputChange}/>
-                </Form.Group>
+                            <Form.Control
+                                type="text"
+                                name="firstName"
+                                value={values.firstName}
+                                onChange={handleChange}
+                                isInvalid={!!errors.firstName}
+                            />
 
-                <Form.Group controlId="confirmPassword">
-                    <Form.Label>Confirm password</Form.Label>
-                    <Form.Control type="password" name="confirmPassword" onChange={this.handleInputChange}/>
-                </Form.Group>
+                            <Form.Control.Feedback type="invalid">
+                                {errors.firstName}
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
-                <Button variant="primary" type="submit">Sign up</Button>
-            </Form>
+                        <Form.Group controlId="lastName">
+                            <Form.Label>Last name</Form.Label>
+
+                            <Form.Control
+                                type="text"
+                                name="lastName"
+                                value={values.lastName}
+                                onChange={handleChange}
+                                isInvalid={!!errors.lastName}
+                            />
+
+                            <Form.Control.Feedback type="invalid">
+                                {errors.lastName}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="company">
+                            <Form.Label>Company</Form.Label>
+
+                            <Form.Control
+                                as="select"
+                                name="company"
+                                onChange={handleChange}
+                                isInvalid={!!errors.company}
+                            >
+                                <option value="">Select a company</option>
+
+                                {
+                                    this.state.companies.map(company => {
+                                        return (
+                                            <option key={company.id} value={company.id}>
+                                                {company.name}
+                                            </option>
+                                        )
+                                    }
+                                )}
+                            </Form.Control>
+
+                            <Form.Control.Feedback type="invalid">
+                                {errors.company}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="password">
+                            <Form.Label>Password</Form.Label>
+
+                            <Form.Control
+                                type="password"
+                                name="password"
+                                value={values.password}
+                                onChange={handleChange}
+                                isInvalid={!!errors.password}
+                            />
+
+                            <Form.Control.Feedback type="invalid">
+                                {errors.password}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Form.Group controlId="confirmPassword">
+                            <Form.Label>Confirm password</Form.Label>
+
+                            <Form.Control
+                                type="password"
+                                name="confirmPassword"
+                                value={values.confirmPassword}
+                                onChange={handleChange}
+                                isInvalid={!!errors.confirmPassword}
+                            />
+
+                            <Form.Control.Feedback type="invalid">
+                                {errors.confirmPassword}
+                            </Form.Control.Feedback>
+                        </Form.Group>
+
+                        <Button variant="primary" type="submit" disabled={isSubmitting}>Sign up</Button>
+                    </Form>
+                )}
+            />
         )
     }
 }
