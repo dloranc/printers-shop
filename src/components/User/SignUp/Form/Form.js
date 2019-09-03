@@ -21,23 +21,7 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            companies: []
-        };
-
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
-
-    componentDidMount() {
-        fetch('http://localhost:4000/companies').then(response => {
-            return response.json();
-        }).then(response => {
-            this.setState(
-                {
-                    companies: response
-                }
-            );
-        });
     }
 
     handleFormSubmit(values, actions) {
@@ -129,7 +113,7 @@ class SignUpForm extends React.Component {
                                 <option value="">Select a company</option>
 
                                 {
-                                    this.state.companies.map(company => {
+                                    this.props.companies.map(company => {
                                         return (
                                             <option key={company.id} value={company.id}>
                                                 {company.name}

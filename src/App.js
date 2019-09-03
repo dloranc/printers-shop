@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import SignUpForm from './components/User/SignUp/Form/Form';
+import SignUpFormScreen from './screens/SignUp/Form';
 import Home from './components/Home';
 import NoMatch from './components/NoMatch';
 import Container from 'react-bootstrap/Container';
@@ -45,7 +45,7 @@ function App() {
                         <Col>
                             <Switch>
                                 <Route path="/" exact component={Home}/>
-                                <Route path="/sign-up" exact component={SignUpForm}/>
+                                <Route path="/sign-up" exact component={SignUpFormScreen}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Col>
