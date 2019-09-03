@@ -10,8 +10,8 @@ export class SignUpForm extends React.Component {
         this.state = {
             email: '',
             firstName: '',
+            company: '',
             lastName: '',
-            companyId: null,
             password: '',
             confirmPassword: '',
 
@@ -69,7 +69,7 @@ export class SignUpForm extends React.Component {
                         {
                             this.state.companies.map(company => {
                                 return (
-                                    <option defaultValue={company.id} key={company.id}>
+                                    <option key={company.id} value={company.id}>
                                         {company.name}
                                     </option>
                                 )
