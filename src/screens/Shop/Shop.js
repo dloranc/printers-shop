@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 class ShopScreen extends React.Component {
     render() {
-        if (window.localStorage.getItem('authenticated')) {
+        if (window.localStorage.getItem('is-authenticated')) {
             return <h1>You have access to the shop page!</h1>;
         }
 

@@ -20,6 +20,7 @@ class SignInForm extends React.Component {
 
     handleFormSubmit(values, actions) {
         if (values.email === 'test@test.com' && values.password === '123456') {
+            window.localStorage.setItem('is-authenticated', true);
             this.props.history.push('/shop');
         }
 

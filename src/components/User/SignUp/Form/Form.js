@@ -27,6 +27,8 @@ class SignUpForm extends React.Component {
 
     handleFormSubmit(values, actions) {
         if (values.email !== 'test@test.com') {
+            window.localStorage.setItem('is-authenticated', true);
+
             this.props.history.push('/shop');
         }
 
