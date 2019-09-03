@@ -1,20 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import SignUpFormScreen from './screens/SignUp/Form';
-import SignInFormScreen from './screens/SignIn/Form';
-import Home from './screens/Home';
-import ShopScreen from './screens/Shop/Shop';
-import NoMatch from './screens/NoMatch';
-
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+
+import ScreensRoot from './screens/Root';
 
 function App() {
     return (
@@ -43,19 +37,7 @@ function App() {
                     </Container>
                 </Navbar>
 
-                <Container>
-                    <Row>
-                        <Col>
-                            <Switch>
-                                <Route path="/" exact component={Home}/>
-                                <Route path="/sign-up" exact component={SignUpFormScreen}/>
-                                <Route path="/sign-in" exact component={SignInFormScreen}/>
-                                <Route path="/shop" exact component={ShopScreen}/>
-                                <Route component={NoMatch}/>
-                            </Switch>
-                        </Col>
-                    </Row>
-                </Container>
+                <ScreensRoot/>
             </Router>
         </>
     );
