@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-class ShopScreen extends React.Component {
+class ScreensShop extends React.Component {
     render() {
         if (window.localStorage.getItem('is-authenticated')) {
             return <h1>You have access to the shop page!</h1>;
@@ -11,4 +11,4 @@ class ShopScreen extends React.Component {
     }
 }
 
-export default ShopScreen;
+export default ScreensShop;
