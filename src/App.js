@@ -7,7 +7,9 @@ import './App.css';
 import SignUpFormScreen from './screens/SignUp/Form';
 import SignInFormScreen from './screens/SignIn/Form';
 import Home from './screens/Home';
+import ShopScreen from './screens/Shop/Shop';
 import NoMatch from './screens/NoMatch';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -48,6 +50,7 @@ function App() {
                                 <Route path="/" exact component={Home}/>
                                 <Route path="/sign-up" exact component={SignUpFormScreen}/>
                                 <Route path="/sign-in" exact component={SignInFormScreen}/>
+                                <Route path="/shop" exact component={ShopScreen}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Col>
