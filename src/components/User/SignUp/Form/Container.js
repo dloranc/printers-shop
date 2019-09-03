@@ -2,8 +2,8 @@ import React from 'react';
 import SignUpForm from './Form';
 
 class SignUpFormContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
         this.state = {
             companies: [],
