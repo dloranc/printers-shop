@@ -25,7 +25,7 @@ class SignUpForm extends React.Component {
     }
 
     handleFormSubmit(values, actions) {
-        // TODO Redirect to /shop
+        // TODO Redirect to /shop if user exists
     }
 
     render() {

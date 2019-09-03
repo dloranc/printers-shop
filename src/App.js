@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 import SignUpFormScreen from './screens/SignUp/Form';
+import SignInFormScreen from './screens/SignIn/Form';
 import Home from './screens/Home';
 import NoMatch from './screens/NoMatch';
 import Container from 'react-bootstrap/Container';
@@ -46,6 +47,7 @@ function App() {
                             <Switch>
                                 <Route path="/" exact component={Home}/>
                                 <Route path="/sign-up" exact component={SignUpFormScreen}/>
+                                <Route path="/sign-in" exact component={SignInFormScreen}/>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Col>
