@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -18,7 +19,11 @@ class SignInForm extends React.Component {
     }
 
     handleFormSubmit(values, actions) {
-        // TODO Redirect to /shop
+        if (values.email === 'test@test.com' && values.password === '123456') {
+            this.props.history.push('/shop');
+        }
+
+        // TODO: handle a case when the email doesn't exists
     }
 
     render() {
@@ -82,4 +87,4 @@ class SignInForm extends React.Component {
     }
 }
 
-export default SignInForm;
+export default withRouter(SignInForm);
