@@ -17,6 +17,8 @@ export class SignUpForm extends React.Component {
 
             companies: []
         };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     componentDidMount() {
@@ -31,6 +33,16 @@ export class SignUpForm extends React.Component {
         });
     }
 
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
     render() {
         return (
             <Form>
@@ -38,20 +50,20 @@ export class SignUpForm extends React.Component {
 
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" name="email" onChange={event => this.setState({ email: event.target.value })}/>
+                    <Form.Control type="email" name="email" onChange={this.handleInputChange}/>
                 </Form.Group>
 
-                <Form.Group controlId="first-name">
+                <Form.Group controlId="firstName">
                     <Form.Label>First name</Form.Label>
-                    <Form.Control type="text" name="first-name" onChange={event => this.setState({ firstName: event.target.value })}/>
+                    <Form.Control type="text" name="firstName" onChange={this.handleInputChange}/>
                 </Form.Group>
 
-                <Form.Group controlId="last-name">
+                <Form.Group controlId="lastName">
                     <Form.Label>Last name</Form.Label>
-                    <Form.Control type="text" name="last-name" onChange={event => this.setState({ lastName: event.target.value })}/>
+                    <Form.Control type="text" name="lastName" onChange={this.handleInputChange}/>
                 </Form.Group>
 
-                <Form.Group controlId="company" onChange={event => this.setState({ company: event.target.value })}>
+                <Form.Group controlId="company" onChange={this.handleInputChange}>
                     <Form.Label>Company</Form.Label>
                     <Form.Control as="select" name="company">
                         {
@@ -68,12 +80,12 @@ export class SignUpForm extends React.Component {
 
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="password" onChange={event => this.setState({ password: event.target.value })}/>
+                    <Form.Control type="password" name="password" onChange={this.handleInputChange}/>
                 </Form.Group>
 
-                <Form.Group controlId="confirm-password">
+                <Form.Group controlId="confirmPassword">
                     <Form.Label>Confirm password</Form.Label>
-                    <Form.Control type="password" name="confirm-password" onChange={event => this.setState({ confirmPassword: event.target.value })}/>
+                    <Form.Control type="password" name="confirmPassword" onChange={this.handleInputChange}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit">Sign up</Button>
