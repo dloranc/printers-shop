@@ -17,7 +17,7 @@ const schema = yup.object({
     ),
 });
 
-export class SignUpForm extends React.Component {
+class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -183,3 +183,5 @@ export class SignUpForm extends React.Component {
         )
     }
 }
+
+export default SignUpForm;

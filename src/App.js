@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import { SignUpForm } from './components/SignUpForm';
-import { Home } from './components/Home';
-import { NoMatch } from './components/NoMatch';
+import SignUpForm from './components/User/SignUp/Form/Form';
+import Home from './components/Home';
+import NoMatch from './components/NoMatch';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
