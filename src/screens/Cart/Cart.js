@@ -1,9 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { store } from './../../store';
+
 class ScreensCart extends React.Component {
     render() {
-        if (window.localStorage.getItem('is-authenticated')) {
+        if (store.getState()) {
             return <h1>You have access to the cart page!</h1>;
         }
 
