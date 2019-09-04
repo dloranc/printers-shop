@@ -61,6 +61,7 @@ export class Product extends Component {
 
         this.inStock = this.inStock.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.addToCart = this.addToCart.bind(this);
     }
 
     inStock() {
@@ -79,6 +80,17 @@ export class Product extends Component {
         }
 
         return 'not available';
+    }
+
+    addToCart() {
+        if (this.state.amount > this.props.inStock) {
+            window.alert('Sorry, but your requested amount of this product exceeds our supply!');
+        } else {
+            if (this.state.amount > 0) {
+                // TODO: add to cart (Redux store)
+                window.alert('Added to cart!');
+            }
+        }
     }
 
     handleChange(event) {
