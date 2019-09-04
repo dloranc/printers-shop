@@ -26,7 +26,7 @@ class NavBar extends React.Component {
         return (
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
-                    <Link to="/">
+                    <Link to={store.getState().isAuthenticated ? '/shop' : '/'}>
                         <Navbar.Brand as="span">
                             Printers &amp; Faxes Shop
                         </Navbar.Brand>
@@ -47,9 +47,6 @@ class NavBar extends React.Component {
                                     </>
                                 ) : (
                                     <>
-                                        <Link to="/shop">
-                                            <Nav.Link as="span">Shop</Nav.Link>
-                                        </Link>
                                         <Link to="/cart">
                                             <Nav.Link as="span">Cart</Nav.Link>
                                         </Link>
