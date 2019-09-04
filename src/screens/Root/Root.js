@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import SignUpFormScreen from './../SignUp/Form';
-import SignInFormScreen from './../SignIn/Form';
+import SignUpFormScreen from '../SignUp/Form';
+import SignInFormScreen from '../SignIn/Form';
 
-import Home from './../Home';
-import ScreensShop from './../Shop/Shop';
-import ScreensCart from './../Cart/Cart';
-import ScreensOrders from './../Orders/Orders';
-import NoMatch from './../NoMatch';
+import Home from './../Home/Home';
+import ScreensShop from '../Shop/Shop';
+import ScreensCart from '../Cart/Cart';
+import ScreensOrders from '../Orders/Orders';
+import NoMatch from './../NoMatch/NoMatch';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
