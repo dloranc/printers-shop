@@ -51,7 +51,7 @@ export class Product extends Component {
         super(props);
 
         this.state = {
-            amount: 0,
+            amount: 1,
         }
 
         this.inStock = this.inStock.bind(this);
