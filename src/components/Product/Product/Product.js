@@ -40,6 +40,11 @@ const AddToCartButton = styled.button`
     padding: 0.6em 1em;
     color: white;
     background: #007bff;
+    border: 0;
+
+    &[disabled] {
+        background: #eee;
+    }
 
     :hover {
         background: #118cff;
@@ -118,7 +123,7 @@ export class Product extends Component {
                     <ProductLabel>Price:</ProductLabel> ${this.state.amount * this.props.price}
                 </ProductRow>
 
-                <AddToCartButton>Add to cart</AddToCartButton>
+                <AddToCartButton disabled={this.state.amount === 0} onClick={this.addToCart}>Add to cart</AddToCartButton>
             </ProductCard>
         )
     }
