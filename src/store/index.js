@@ -3,9 +3,12 @@ import { createStore } from 'redux';
 const isAuthenticationFromStorage = window.sessionStorage.getItem('is-authenticated');
 const isAuthenticatedState = isAuthenticationFromStorage !== null ? isAuthenticationFromStorage : 'false';
 
+const roleFromStorage = window.sessionStorage.getItem('role');
+const roleState = roleFromStorage !== null ? roleFromStorage : 'user';
+
 const defaultState = {
     isAuthenticated: isAuthenticatedState === 'true' ? true : false,
-    role: 'user',
+    role: roleState,
 }
 
 function userReducer(state = defaultState, action) {

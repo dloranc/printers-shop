@@ -50,6 +50,7 @@ class SignInForm extends React.Component {
         store.dispatch({ type: 'AUTHENTICATE' });
         store.dispatch(setRole(role));
         window.sessionStorage.setItem('is-authenticated', 'true');
+        window.sessionStorage.setItem('role', role);
 
         this.props.history.push('/shop');
     }
