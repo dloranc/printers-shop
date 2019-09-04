@@ -3,10 +3,12 @@ import { Redirect } from 'react-router-dom';
 
 import { store } from './../../store';
 
+import ProductListContainer from './../../components/Product/List/Container/Container';
+
 class ScreensShop extends React.Component {
     render() {
         if (store.getState()) {
-            return <h1>You have access to the shop page!</h1>;
+            return <ProductListContainer></ProductListContainer>;
         }
 
         return <Redirect to="/"></Redirect>;
