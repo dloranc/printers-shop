@@ -35,6 +35,17 @@ export class ScreensInventory extends Component {
         }
     }
 
+    componentDidMount() {
+        setInterval(() => {
+            this.setState({
+                data: [...this.state.data, {
+                    month: 'May',
+                    value: Math.floor(Math.random() * 1000),
+                }]
+            })
+        }, 500);
+    }
+
     render() {
         if (store.getState().isAuthenticated && store.getState().role === 'admin') {
             return (
@@ -45,7 +56,7 @@ export class ScreensInventory extends Component {
 
                         <CartesianGrid strokeDasharray="3 3"/>
 
-                        <Line name="price" type="linear" dataKey="value"/>
+                        <Line name="price" type="linear" dataKey="value" isAnimationActive={false}/>
 
                         <Tooltip/>
                     </LineChart>
