@@ -46,7 +46,18 @@ class NavBar extends React.Component {
                                         </Link>
                                     </>
                                 ) : (
-                                    <Nav.Link onClick={this.logout}>Log out</Nav.Link>
+                                    <>
+                                        <Link to="/shop">
+                                            <Nav.Link as="span">Shop</Nav.Link>
+                                        </Link>
+                                        <Link to="/cart">
+                                            <Nav.Link as="span">Cart</Nav.Link>
+                                        </Link>
+                                        <Link to="/orders">
+                                            <Nav.Link as="span">Orders</Nav.Link>
+                                        </Link>
+                                        <Nav.Link onClick={this.logout}>Log out</Nav.Link>
+                                    </>
                                 )
                             }
                         </Nav>
