@@ -8,6 +8,7 @@ import Home from './../Home/Home';
 import ScreensShop from '../Shop/Shop';
 import ScreensCart from '../Cart/Cart';
 import ScreensOrders from '../Orders/Orders';
+import ScreensInventory from '../Inventory/Inventory';
 import NoMatch from './../NoMatch/NoMatch';
 
 import Container from 'react-bootstrap/Container';
@@ -27,6 +28,7 @@ class ScreensRoot extends React.Component {
                             <Route path="/shop" exact component={ScreensShop}/>
                             <Route path="/cart" exact component={ScreensCart}/>
                             <Route path="/orders" exact component={ScreensOrders}/>
+                            <Route path="/inventory" exact component={ScreensInventory}/>
                             <Route component={NoMatch}/>
                         </Switch>
                     </Col>

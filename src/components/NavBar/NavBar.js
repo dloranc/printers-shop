@@ -53,6 +53,12 @@ class NavBar extends React.Component {
                                         <Link to="/orders">
                                             <Nav.Link as="span">Orders</Nav.Link>
                                         </Link>
+                                        {store.getState().role === 'admin' ?
+                                        (
+                                            <Link to="/inventory">
+                                                <Nav.Link as="span">Inventory</Nav.Link>
+                                            </Link>
+                                        ) : (<></>)}
                                         <Nav.Link onClick={this.logout}>Log out</Nav.Link>
                                     </>
                                 )
