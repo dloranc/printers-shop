@@ -5,7 +5,7 @@ import { store } from './../../store';
 
 class ScreensOrders extends React.Component {
     render() {
-        if (store.getState()) {
+        if (store.getState().isAuthenticated) {
             return <h1>You have access to the orders page!</h1>;
         }
 

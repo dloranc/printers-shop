@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { store } from './../../../../store';
+import { store, setRole } from './../../../../store';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -20,7 +20,6 @@ class SignInForm extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-
     handleFormSubmit(values, actions) {
         fetch('http://localhost:4000/users').then(response => {
             return response.json();
@@ -30,7 +29,7 @@ class SignInForm extends React.Component {
             );
 
             if (user.length === 1) {
-                this.authenticate();
+                this.authenticate(user[0].role);
             } else {
                 actions.setErrors({
                     email: 'Invalid email or password. Try again.',
@@ -47,8 +46,9 @@ class SignInForm extends React.Component {
         });
     }
 
-    authenticate() {
+    authenticate(role) {
         store.dispatch({ type: 'AUTHENTICATE' });
+        store.dispatch(setRole(role));
         window.sessionStorage.setItem('is-authenticated', 'true');
 
         this.props.history.push('/shop');

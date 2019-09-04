@@ -7,7 +7,7 @@ import ProductListContainer from './../../components/Product/List/Container/Cont
 
 class ScreensShop extends React.Component {
     render() {
-        if (store.getState()) {
+        if (store.getState().isAuthenticated) {
             return <ProductListContainer></ProductListContainer>;
         }
 

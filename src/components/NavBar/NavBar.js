@@ -36,7 +36,7 @@ class NavBar extends React.Component {
 
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            {!store.getState() ? (
+                            {!store.getState().isAuthenticated ? (
                                     <>
                                         <Link to="/sign-up">
                                             <Nav.Link as="span">Sign up</Nav.Link>
