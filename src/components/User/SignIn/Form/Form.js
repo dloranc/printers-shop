@@ -3,6 +3,8 @@ import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import { store } from './../../../../store';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -19,8 +21,11 @@ class SignInForm extends React.Component {
     }
 
     handleFormSubmit(values, actions) {
+        // TODO: check the list of users from API
         if (values.email === 'test@test.com' && values.password === '123456') {
-            window.localStorage.setItem('is-authenticated', true);
+            store.dispatch({ type: 'AUTHENTICATE' });
+            window.sessionStorage.setItem('is-authenticated', 'true');
+
             this.props.history.push('/shop');
         }
 
