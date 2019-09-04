@@ -20,16 +20,38 @@ class SignInForm extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
+
     handleFormSubmit(values, actions) {
-        // TODO: check the list of users from API
-        if (values.email === 'test@test.com' && values.password === '123456') {
-            store.dispatch({ type: 'AUTHENTICATE' });
-            window.sessionStorage.setItem('is-authenticated', 'true');
+        fetch('http://localhost:4000/users').then(response => {
+            return response.json();
+        }).then(response => {
+            const user = response.filter(
+                user => user.email === values.email && user.password === values.password
+            );
 
-            this.props.history.push('/shop');
-        }
+            if (user.length === 1) {
+                this.authenticate();
+            } else {
+                actions.setErrors({
+                    email: 'Invalid email or password. Try again.',
+                });
 
-        // TODO: handle a case when the email doesn't exists
+                actions.setSubmitting(false);
+            }
+        }).catch(() => {
+            actions.setErrors({
+                email: 'Something went wrong.',
+            });
+
+            actions.setSubmitting(false);
+        });
+    }
+
+    authenticate() {
+        store.dispatch({ type: 'AUTHENTICATE' });
+        window.sessionStorage.setItem('is-authenticated', 'true');
+
+        this.props.history.push('/shop');
     }
 
     render() {

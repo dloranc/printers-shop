@@ -25,18 +25,41 @@ class SignUpForm extends React.Component {
         super(props);
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.authenticate = this.authenticate.bind(this);
     }
 
+    // TODO: remove duplicated code (it's almost the same as in the SignIn/Form/Form.js)
     handleFormSubmit(values, actions) {
-        // TODO: check the data against real data from API
-        if (values.email !== 'test@test.com') {
-            store.dispatch({ type: 'AUTHENTICATE' });
-            window.sessionStorage.setItem('is-authenticated', 'true');
+        fetch('http://localhost:4000/users').then(response => {
+            return response.json();
+        }).then(response => {
+            const user = response.filter(
+                user => user.email === values.email && user.password === values.password
+            );
 
-            this.props.history.push('/shop');
-        }
+            if (user.length === 0) {
+                this.authenticate();
+            } else {
+                actions.setErrors({
+                    email: 'The user with this email exists in the database.',
+                });
 
-        // TODO: handle a case when the email exists
+                actions.setSubmitting(false);
+            }
+        }).catch(() => {
+            actions.setErrors({
+                email: 'Something went wrong.',
+            });
+
+            actions.setSubmitting(false);
+        });
+    }
+
+    authenticate() {
+        store.dispatch({ type: 'AUTHENTICATE' });
+        window.sessionStorage.setItem('is-authenticated', 'true');
+
+        this.props.history.push('/shop');
     }
 
     render() {
