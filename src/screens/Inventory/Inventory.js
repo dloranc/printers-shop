@@ -48,7 +48,7 @@ export class ScreensInventory extends Component {
 
         this.setState({
             intervalId: intervalId,
-        })
+        });
     }
 
     componentWillUnmount() {
