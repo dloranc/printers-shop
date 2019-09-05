@@ -1,13 +1,13 @@
 import { createStore } from 'redux';
 
-const isAuthenticationFromStorage = window.sessionStorage.getItem('is-authenticated');
-const isAuthenticatedState = isAuthenticationFromStorage !== null ? isAuthenticationFromStorage : 'false';
+const isAuthenticatedFromStorage = JSON.parse(window.sessionStorage.getItem('is-authenticated'));
+const isAuthenticatedState = isAuthenticatedFromStorage !== null ? isAuthenticatedFromStorage : false;
 
 const roleFromStorage = window.sessionStorage.getItem('role');
 const roleState = roleFromStorage !== null ? roleFromStorage : 'user';
 
 const defaultState = {
-    isAuthenticated: isAuthenticatedState === 'true' ? true : false,
+    isAuthenticated: isAuthenticatedState,
     role: roleState,
 }
 
