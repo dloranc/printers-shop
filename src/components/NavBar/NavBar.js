@@ -7,18 +7,6 @@ import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
-    constructor() {
-        super();
-
-        this.logout = this.logout.bind(this);
-    }
-
-    logout() {
-        window.sessionStorage.setItem('is-authenticated', 'false');
-        this.props.logout();
-        this.props.history.push('/');
-    }
-
     render() {
         return (
             <Navbar fixed="top" bg="primary" variant="dark">
@@ -56,7 +44,7 @@ class NavBar extends React.Component {
                                                 <Nav.Link as="span">Inventory</Nav.Link>
                                             </Link>
                                         ) : (<></>)}
-                                        <Nav.Link onClick={this.logout}>Log out</Nav.Link>
+                                        <Nav.Link onClick={this.props.onLogout}>Log out</Nav.Link>
                                     </>
                                 )
                             }
