@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { store } from './../../store';
+import store from './../../store';
 
 function ScreensHome() {
   if (!store.getState().isAuthenticated) {

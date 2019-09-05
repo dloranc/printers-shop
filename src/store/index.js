@@ -26,11 +26,4 @@ function userReducer(state = defaultState, action) {
 
 let store = createStore(userReducer);
 
-const setRole = (role) => {
-    return {
-        type: 'SET_ROLE',
-        role,
-    }
-}
-
-export { store, setRole };
+export default store;

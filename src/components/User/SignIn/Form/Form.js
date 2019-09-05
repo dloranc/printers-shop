@@ -3,7 +3,8 @@ import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { store, setRole } from './../../../../store';
+import store from './../../../../store';
+import { setRole } from './../../../../store/actions';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

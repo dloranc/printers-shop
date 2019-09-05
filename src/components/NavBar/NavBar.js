@@ -1,13 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
 import { Link } from 'react-router-dom';
-
-import { store } from './../../store';
 
 class NavBar extends React.Component {
     constructor() {
@@ -18,7 +15,7 @@ class NavBar extends React.Component {
 
     logout() {
         window.sessionStorage.setItem('is-authenticated', 'false');
-        store.dispatch({ type: 'LOGOUT' });
+        this.props.logout();
         this.props.history.push('/');
     }
 
@@ -26,7 +23,7 @@ class NavBar extends React.Component {
         return (
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
-                    <Link to={store.getState().isAuthenticated ? '/shop' : '/'}>
+                    <Link to={this.props.isAuthenticated ? '/shop' : '/'}>
                         <Navbar.Brand as="span">
                             Printers &amp; Faxes Shop
                         </Navbar.Brand>
@@ -36,7 +33,7 @@ class NavBar extends React.Component {
 
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            {!store.getState().isAuthenticated ? (
+                            {!this.props.isAuthenticated ? (
                                     <>
                                         <Link to="/sign-up">
                                             <Nav.Link as="span">Sign up</Nav.Link>
@@ -53,7 +50,7 @@ class NavBar extends React.Component {
                                         <Link to="/orders">
                                             <Nav.Link as="span">Orders</Nav.Link>
                                         </Link>
-                                        {store.getState().role === 'admin' ?
+                                        {this.props.role === 'admin' ?
                                         (
                                             <Link to="/inventory">
                                                 <Nav.Link as="span">Inventory</Nav.Link>
@@ -71,4 +68,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default withRouter(NavBar);
+export default NavBar;

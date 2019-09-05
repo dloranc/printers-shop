@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { store } from './../../store';
+import store from './../../store';
 
 class ScreensOrders extends React.Component {
     render() {
