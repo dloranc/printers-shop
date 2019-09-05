@@ -36,6 +36,10 @@ class ScreensInventory extends Component {
     }
 
     componentDidMount() {
+        if (!this.isAuthenticatedAndHasAdminRole()) {
+            return;
+        }
+
         const intervalId = setInterval(() => {
             this.setState({
                 data: [...this.state.data, {
@@ -51,11 +55,19 @@ class ScreensInventory extends Component {
     }
 
     componentWillUnmount() {
+        if (!this.isAuthenticatedAndHasAdminRole()) {
+            return;
+        }
+
         clearInterval(this.state.intervalId);
     }
 
+    isAuthenticatedAndHasAdminRole = () => {
+        return this.props.isAuthenticated && this.props.role === 'admin';
+    }
+
     render() {
-        if (this.props.isAuthenticated && this.props.role === 'admin') {
+        if (this.isAuthenticatedAndHasAdminRole()) {
             return (
                 <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
                     <LineChart data={this.state.data}>
