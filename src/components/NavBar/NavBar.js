@@ -44,17 +44,28 @@ class NavBar extends React.Component {
                 <Link to="/cart">
                     <Nav.Link as="span">Cart</Nav.Link>
                 </Link>
+
                 <Link to="/orders">
                     <Nav.Link as="span">Orders</Nav.Link>
                 </Link>
-                {this.isAdmin() && (
-                    <Link to="/inventory">
-                        <Nav.Link as="span">Inventory</Nav.Link>
-                    </Link>
-                )}
+
+                {this.adminLinks()}
+
                 <Nav.Link onClick={this.logout}>Log out</Nav.Link>
             </>
         )
+    }
+
+    adminLinks = () => {
+        if (this.isAdmin()) {
+            return (
+                <Link to="/inventory">
+                    <Nav.Link as="span">Inventory</Nav.Link>
+                </Link>
+            )
+        }
+
+        return null;
     }
 
     render() {
