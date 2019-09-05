@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import store from './../../../../store';
-import { setRole } from './../../../../store/actions';
+import { setRole } from './../../../../store/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

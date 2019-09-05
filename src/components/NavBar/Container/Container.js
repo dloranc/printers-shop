@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from './../../../store/actions';
+import { logout } from './../../../store/action-creators';
 
 import Navbar from './../NavBar';
 
