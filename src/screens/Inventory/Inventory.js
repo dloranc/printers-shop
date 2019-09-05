@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
-
-import store from '../../store';
+import { connect } from 'react-redux';
 
 import { ResponsiveContainer, LineChart, Line, Tooltip, CartesianGrid, YAxis, XAxis } from 'recharts';
 
-export class ScreensInventory extends Component {
+class ScreensInventory extends Component {
     constructor() {
         super();
 
@@ -56,7 +55,7 @@ export class ScreensInventory extends Component {
     }
 
     render() {
-        if (store.getState().isAuthenticated && store.getState().role === 'admin') {
+        if (this.props.isAuthenticated && this.props.role === 'admin') {
             return (
                 <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
                     <LineChart data={this.state.data}>
@@ -77,4 +76,11 @@ export class ScreensInventory extends Component {
     }
 }
 
-export default ScreensInventory;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.isAuthenticated,
+        role: state.role,
+    }
+};
+
+export default connect(mapStateToProps)(ScreensInventory);

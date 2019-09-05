@@ -1,11 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
-import store from './../../store';
+import { connect } from 'react-redux';
 
 class ScreensOrders extends React.Component {
     render() {
-        if (store.getState().isAuthenticated) {
+        if (this.props.isAuthenticated) {
             return <h1>You have access to the orders page!</h1>;
         }
 
@@ -13,4 +12,11 @@ class ScreensOrders extends React.Component {
     }
 }
 
-export default ScreensOrders;
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.isAuthenticated,
+    }
+};
+
+export default connect(mapStateToProps)(ScreensOrders);

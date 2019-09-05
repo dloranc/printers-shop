@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import store from './../../store';
+class ScreensHome extends Component {
+  render() {
+    if (!this.props.isAuthenticated) {
+      return (
+        <div className="home">
+          <h1>Home</h1>
 
-function ScreensHome() {
-  if (!store.getState().isAuthenticated) {
-    return (
-      <div className="home">
-        <h1>Home</h1>
+          <p>Please, sign up or log in to see our products.</p>
+        </div>
+      );
+    }
 
-        <p>Please, sign up or log in to see our products.</p>
-      </div>
-    );
+    return <Redirect to="/shop"></Redirect>;
   }
-
-  return <Redirect to="/shop"></Redirect>;
 }
 
-export default ScreensHome;
+const mapStateToProps = (state) => {
+  return {
+      isAuthenticated: state.isAuthenticated,
+  }
+};
+
+export default connect(mapStateToProps)(ScreensHome);
