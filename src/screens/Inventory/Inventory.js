@@ -10,6 +10,7 @@ export class ScreensInventory extends Component {
         super();
 
         this.state = {
+            intervalId: null,
             data: [
                 {
                     month: 'January',
@@ -36,14 +37,22 @@ export class ScreensInventory extends Component {
     }
 
     componentDidMount() {
-        setInterval(() => {
+        const intervalId = setInterval(() => {
             this.setState({
                 data: [...this.state.data, {
                     month: 'May',
                     value: Math.floor(Math.random() * 1000),
                 }]
-            })
+            });
         }, 500);
+
+        this.setState({
+            intervalId: intervalId,
+        })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.intervalId);
     }
 
     render() {
