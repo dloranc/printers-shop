@@ -6,34 +6,30 @@ import { store } from '../../store';
 import { ResponsiveContainer, LineChart, Line, Tooltip, CartesianGrid, YAxis, XAxis } from 'recharts';
 
 export class ScreensInventory extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            intervalId: null,
-            data: [
-                {
-                    month: 'January',
-                    value: 100,
-                },
-                {
-                    month: 'February',
-                    value: 200,
-                },
-                {
-                    month: 'March',
-                    value: 130,
-                },
-                {
-                    month: 'April',
-                    value: 500,
-                },
-                {
-                    month: 'May',
-                    value: 50,
-                },
-            ],
-        }
+    state = {
+        intervalId: null,
+        data: [
+            {
+                month: 'January',
+                value: 100,
+            },
+            {
+                month: 'February',
+                value: 200,
+            },
+            {
+                month: 'March',
+                value: 130,
+            },
+            {
+                month: 'April',
+                value: 500,
+            },
+            {
+                month: 'May',
+                value: 50,
+            },
+        ],
     }
 
     componentDidMount() {

@@ -10,12 +10,8 @@ const ProductList = styled.div`
 `;
 
 export class ProductListContainer extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            products: []
-        }
+    state = {
+        products: [],
     }
 
     componentDidMount() {
