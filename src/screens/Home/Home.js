@@ -4,7 +4,9 @@ import { Redirect } from 'react-router-dom';
 import { store } from './../../store';
 
 function ScreensHome() {
-  if (!store.getState().isAuthenticated) {
+  const isAuthenticated = store.getState().isAuthenticated;
+
+  if (!isAuthenticated) {
     return (
       <div className="home">
         <h1>Home</h1>

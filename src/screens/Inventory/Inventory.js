@@ -55,8 +55,12 @@ export class ScreensInventory extends Component {
         clearInterval(this.state.intervalId);
     }
 
+    isAuthenticatedAndHasAdminRole = () => {
+        return store.getState().isAuthenticated && store.getState().role === 'admin';
+    }
+
     render() {
-        if (store.getState().isAuthenticated && store.getState().role === 'admin') {
+        if (this.isAuthenticatedAndHasAdminRole()) {
             return (
                 <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
                     <LineChart data={this.state.data}>
