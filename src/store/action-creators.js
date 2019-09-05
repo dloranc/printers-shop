@@ -1,18 +1,20 @@
+import * as constants from './constants';
+
 const authenticate = () => {
     return {
-        type: 'AUTHENTICATE',
+        type: constants.AUTHENTICATE,
     }
 }
 
 const logout = () => {
     return {
-        type: 'LOGOUT',
+        type: constants.LOGOUT,
     }
 }
 
 const setRole = (role) => {
     return {
-        type: 'SET_ROLE',
+        type: constants.SET_ROLE,
         role,
     }
 }
