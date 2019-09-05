@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import axios from 'axios';
 
 import { store } from './../../../../store';
 
@@ -21,43 +22,37 @@ const schema = yup.object({
 });
 
 class SignUpForm extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.authenticate = this.authenticate.bind(this);
-    }
-
     // TODO: remove duplicated code (it's almost the same as in the SignIn/Form/Form.js)
-    handleFormSubmit(values, actions) {
-        fetch('http://localhost:4000/users').then(response => {
-            return response.json();
-        }).then(response => {
-            const user = response.filter(
-                user => user.email === values.email && user.password === values.password
-            );
+    handleFormSubmit = (values, actions) => {
+        axios.get('http://localhost:4000/users')
+            .then(response => {
+                const users = response.data;
 
-            if (user.length === 0) {
-                this.authenticate();
-            } else {
+                const user = users.filter(
+                    user => user.email === values.email && user.password === values.password
+                );
+
+                if (user.length === 0) {
+                    this.authenticate();
+                } else {
+                    actions.setErrors({
+                        email: 'The user with this email exists in the database.',
+                    });
+
+                    actions.setSubmitting(false);
+                }
+            }).catch(() => {
                 actions.setErrors({
-                    email: 'The user with this email exists in the database.',
+                    email: 'Something went wrong.',
                 });
 
                 actions.setSubmitting(false);
-            }
-        }).catch(() => {
-            actions.setErrors({
-                email: 'Something went wrong.',
             });
-
-            actions.setSubmitting(false);
-        });
     }
 
-    authenticate() {
+    authenticate = () => {
         store.dispatch({ type: 'AUTHENTICATE' });
-        window.sessionStorage.setItem('is-authenticated', 'true');
+        window.sessionStorage.setItem('is-authenticated', true);
 
         this.props.history.push('/shop');
     }

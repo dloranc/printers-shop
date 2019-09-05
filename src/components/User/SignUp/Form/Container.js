@@ -1,25 +1,22 @@
 import React from 'react';
 import SignUpForm from './Form';
 
-class SignUpFormContainer extends React.Component {
-    constructor() {
-        super();
+import axios from 'axios';
 
-        this.state = {
-            companies: [],
-        }
+class SignUpFormContainer extends React.Component {
+    state = {
+        companies: [],
     }
 
     componentDidMount() {
-        fetch('http://localhost:4000/companies').then(response => {
-            return response.json();
-        }).then(response => {
-            this.setState(
-                {
-                    companies: response
-                }
-            );
-        });
+        axios.get('http://localhost:4000/companies')
+            .then(response => {
+                this.setState(
+                    {
+                        companies: response.data,
+                    }
+                );
+            });
     }
 
     render() {

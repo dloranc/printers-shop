@@ -7,6 +7,7 @@ import { store, setRole } from './../../../../store';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 const schema = yup.object({
     email: yup.string().email('Email must be a valid email').required('Email is required'),
@@ -14,42 +15,37 @@ const schema = yup.object({
 });
 
 class SignInForm extends React.Component {
-    constructor(props) {
-        super(props);
+    handleFormSubmit = (values, actions) => {
+        axios.get('http://localhost:4000/users')
+            .then(response => {
+                const users = response.data;
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
+                const user = users.filter(
+                    user => user.email === values.email && user.password === values.password
+                );
 
-    handleFormSubmit(values, actions) {
-        fetch('http://localhost:4000/users').then(response => {
-            return response.json();
-        }).then(response => {
-            const user = response.filter(
-                user => user.email === values.email && user.password === values.password
-            );
+                if (user.length === 1) {
+                    this.authenticate(user[0].role);
+                } else {
+                    actions.setErrors({
+                        email: 'Invalid email or password. Try again.',
+                    });
 
-            if (user.length === 1) {
-                this.authenticate(user[0].role);
-            } else {
+                    actions.setSubmitting(false);
+                }
+            }).catch(() => {
                 actions.setErrors({
-                    email: 'Invalid email or password. Try again.',
+                    email: 'Something went wrong.',
                 });
 
                 actions.setSubmitting(false);
-            }
-        }).catch(() => {
-            actions.setErrors({
-                email: 'Something went wrong.',
             });
-
-            actions.setSubmitting(false);
-        });
     }
 
     authenticate(role) {
         store.dispatch({ type: 'AUTHENTICATE' });
         store.dispatch(setRole(role));
-        window.sessionStorage.setItem('is-authenticated', 'true');
+        window.sessionStorage.setItem('is-authenticated', true);
         window.sessionStorage.setItem('role', role);
 
         this.props.history.push('/shop');

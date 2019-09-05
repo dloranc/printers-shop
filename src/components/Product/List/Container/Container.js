@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Product from './../../Product/Product';
 
@@ -15,9 +16,11 @@ export class ProductListContainer extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:4000/products')
-            .then(response => response.json())
-            .then(products => this.setState({ products: products }));
+        axios.get('http://localhost:4000/products')
+            .then(response => {
+                this.setState({ products: response.data });
+            })
+            .catch(error => console.log(error));
     }
 
     render() {

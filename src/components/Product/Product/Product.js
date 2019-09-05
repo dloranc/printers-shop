@@ -52,19 +52,11 @@ const AddToCartButton = styled.button`
 `;
 
 export class Product extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            amount: 1,
-        }
-
-        this.inStock = this.inStock.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.addToCart = this.addToCart.bind(this);
+    state = {
+        amount: 1,
     }
 
-    inStock() {
+    inStock = () => {
         const inStock = this.props.inStock;
 
         if (inStock > 100) {
@@ -82,7 +74,7 @@ export class Product extends Component {
         return 'not available';
     }
 
-    addToCart() {
+    addToCart = () => {
         if (this.state.amount > this.props.inStock) {
             window.alert('Sorry, but your requested amount of this product exceeds our supply!');
         } else {
@@ -93,7 +85,7 @@ export class Product extends Component {
         }
     }
 
-    handleChange(event) {
+    handleChange = event => {
         const value = event.target.value;
 
         if (value < 0) {
