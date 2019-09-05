@@ -23,12 +23,12 @@ class ScreensRoot extends React.Component {
                     <Col>
                         <Switch>
                             <Route path="/" exact component={Home}/>
-                            <Route path="/sign-up" exact component={SignUpFormScreen}/>
-                            <Route path="/sign-in" exact component={SignInFormScreen}/>
-                            <Route path="/shop" exact component={ScreensShop}/>
-                            <Route path="/cart" exact component={ScreensCart}/>
-                            <Route path="/orders" exact component={ScreensOrders}/>
-                            <Route path="/inventory" exact component={ScreensInventory}/>
+                            <Route path="/sign-up" component={SignUpFormScreen}/>
+                            <Route path="/sign-in" component={SignInFormScreen}/>
+                            <Route path="/shop" component={ScreensShop}/>
+                            <Route path="/cart" component={ScreensCart}/>
+                            <Route path="/orders" component={ScreensOrders}/>
+                            <Route path="/inventory" component={ScreensInventory}/>
                             <Route component={NoMatch}/>
                         </Switch>
                     </Col>
