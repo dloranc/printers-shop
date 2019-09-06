@@ -67,7 +67,9 @@ class SignInForm extends React.Component {
                         handleChange,
                         values,
                         errors,
+                        touched,
                         isSubmitting,
+                        handleBlur,
                     }
                 ) => (
                     <Form noValidate onSubmit={handleSubmit}>
@@ -81,11 +83,12 @@ class SignInForm extends React.Component {
                                 name="email"
                                 value={values.email}
                                 onChange={handleChange}
-                                isInvalid={!!errors.email}
+                                isInvalid={!!errors.email && touched.email}
+                                onBlur={handleBlur}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.email}
+                                {touched.email && errors.email}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -97,11 +100,12 @@ class SignInForm extends React.Component {
                                 name="password"
                                 value={values.password}
                                 onChange={handleChange}
-                                isInvalid={!!errors.password}
+                                isInvalid={!!errors.password && touched.password}
+                                onBlur={handleBlur}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.password}
+                                {touched.password && errors.password}
                             </Form.Control.Feedback>
                         </Form.Group>
 
