@@ -82,6 +82,7 @@ class SignUpForm extends React.Component {
                         errors,
                         isSubmitting,
                         handleBlur,
+                        isValid,
                         touched,
                     }
                 ) => (
@@ -201,7 +202,7 @@ class SignUpForm extends React.Component {
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isSubmitting}>Sign up</Button>
+                        <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>Sign up</Button>
                     </Form>
                 )}
             />

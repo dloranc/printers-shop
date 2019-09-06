@@ -70,6 +70,7 @@ class SignInForm extends React.Component {
                         touched,
                         isSubmitting,
                         handleBlur,
+                        isValid,
                     }
                 ) => (
                     <Form noValidate onSubmit={handleSubmit}>
@@ -109,7 +110,7 @@ class SignInForm extends React.Component {
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isSubmitting}>Sign in</Button>
+                        <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>Sign in</Button>
                     </Form>
                 )}
             />
