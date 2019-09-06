@@ -14,11 +14,11 @@ const defaultState = {
 function user(state = defaultState, action) {
     switch (action.type) {
         case AUTHENTICATE:
-            return true;
+            return Object.assign({}, state, { isAuthenticated: true });
         case LOGOUT:
-            return false;
+                return Object.assign({}, state, { isAuthenticated: false });
         case SET_ROLE:
-            return action.role;
+                return Object.assign({}, state, { role: action.role });
         default:
             return state;
     }
