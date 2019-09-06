@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { authenticate, setRole } from './../../../../store/action-creators';
+import { authenticate, setRole } from './../../../../store/user/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
