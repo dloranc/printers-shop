@@ -2,8 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
 
-import { store, setRole } from './../../../../store';
+import { authenticate, setRole } from './../../../../store/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -43,9 +44,9 @@ class SignInForm extends React.Component {
     }
 
     authenticate(role) {
-        store.dispatch({ type: 'AUTHENTICATE' });
-        store.dispatch(setRole(role));
-        window.sessionStorage.setItem('is-authenticated', true);
+        this.props.authenticate();
+        this.props.setRole(role);
+        window.sessionStorage.setItem('is-authenticated', 'true');
         window.sessionStorage.setItem('role', role);
 
         this.props.history.push('/shop');
@@ -112,4 +113,12 @@ class SignInForm extends React.Component {
     }
 }
 
-export default withRouter(SignInForm);
+const withRedux = connect(
+    null,
+    {
+        authenticate,
+        setRole,
+    },
+)(SignInForm);
+
+export default withRouter(withRedux);

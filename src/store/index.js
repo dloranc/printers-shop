@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { AUTHENTICATE, LOGOUT, SET_ROLE } from './constants';
 
 const isAuthenticatedFromStorage = JSON.parse(window.sessionStorage.getItem('is-authenticated'));
 const isAuthenticatedState = isAuthenticatedFromStorage !== null ? isAuthenticatedFromStorage : false;
@@ -13,24 +14,20 @@ const defaultState = {
 
 function userReducer(state = defaultState, action) {
     switch (action.type) {
-        case 'AUTHENTICATE':
+        case AUTHENTICATE:
             return Object.assign({}, state, { isAuthenticated: true });
-        case 'LOGOUT':
+        case LOGOUT:
             return Object.assign({}, state, { isAuthenticated: false });
-        case 'SET_ROLE':
+        case SET_ROLE:
             return Object.assign({}, state, { role: action.role });
         default:
             return state;
     }
 }
 
-let store = createStore(userReducer);
+let store = createStore(
+    userReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
-const setRole = (role) => {
-    return {
-        type: 'SET_ROLE',
-        role,
-    }
-}
-
-export { store, setRole };
+export default store;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,22 +6,13 @@ import Nav from 'react-bootstrap/Nav';
 
 import { Link } from 'react-router-dom';
 
-import { store } from './../../store';
-
 class NavBar extends React.Component {
-    logout = () => {
-        window.sessionStorage.setItem('is-authenticated', false);
-        window.sessionStorage.removeItem('role');
-        store.dispatch({ type: 'LOGOUT' });
-        this.props.history.push('/');
-    }
-
     isAuthenticated = () => {
-        return store.getState().isAuthenticated;
+        return this.props.isAuthenticated;
     }
 
     isAdmin = () => {
-        return store.getState().role === 'admin';
+        return this.props.role === 'admin';
     }
 
     authLinks = () => {
@@ -51,7 +41,7 @@ class NavBar extends React.Component {
 
                 {this.adminLinks()}
 
-                <Nav.Link onClick={this.logout}>Log out</Nav.Link>
+                <Nav.Link onClick={this.props.onLogout}>Log out</Nav.Link>
             </>
         )
     }
@@ -72,7 +62,7 @@ class NavBar extends React.Component {
         return (
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
-                    <Link to={this.isAuthenticated() ? '/shop' : '/'}>
+                    <Link to={this.props.isAuthenticated ? '/shop' : '/'}>
                         <Navbar.Brand as="span">
                             Printers &amp; Faxes Shop
                         </Navbar.Brand>
@@ -91,4 +81,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default withRouter(NavBar);
+export default NavBar;

@@ -3,8 +3,9 @@ import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-import { store } from './../../../../store';
+import { authenticate, setRole } from './../../../../store/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -50,9 +51,12 @@ class SignUpForm extends React.Component {
             });
     }
 
-    authenticate = () => {
-        store.dispatch({ type: 'AUTHENTICATE' });
-        window.sessionStorage.setItem('is-authenticated', true);
+    authenticate() {
+        this.props.authenticate();
+        this.props.setRole('user');
+
+        window.sessionStorage.setItem('is-authenticated', 'true');
+        window.sessionStorage.setItem('role', 'user');
 
         this.props.history.push('/shop');
     }
@@ -197,4 +201,12 @@ class SignUpForm extends React.Component {
     }
 }
 
-export default withRouter(SignUpForm);
+const withRedux = connect(
+    null,
+    {
+        authenticate,
+        setRole,
+    },
+)(SignUpForm);
+
+export default withRouter(withRedux);

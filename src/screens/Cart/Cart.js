@@ -1,13 +1,10 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
-import { store } from './../../store';
+import { connect } from 'react-redux';
 
 class ScreensCart extends React.Component {
     render() {
-        const isAuthenticated = store.getState().isAuthenticated;
-
-        if (isAuthenticated) {
+        if (this.props.isAuthenticated) {
             return <h1>You have access to the cart page!</h1>;
         }
 
@@ -15,4 +12,10 @@ class ScreensCart extends React.Component {
     }
 }
 
-export default ScreensCart;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.isAuthenticated,
+    }
+};
+
+export default connect(mapStateToProps)(ScreensCart);

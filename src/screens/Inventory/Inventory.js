@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
-
-import { store } from '../../store';
+import { connect } from 'react-redux';
 
 import { ResponsiveContainer, LineChart, Line, Tooltip, CartesianGrid, YAxis, XAxis } from 'recharts';
 
@@ -33,6 +32,10 @@ export class ScreensInventory extends Component {
     }
 
     componentDidMount() {
+        if (!this.isAuthenticatedAndHasAdminRole()) {
+            return;
+        }
+
         const intervalId = setInterval(() => {
             this.setState({
                 data: [...this.state.data, {
@@ -48,11 +51,15 @@ export class ScreensInventory extends Component {
     }
 
     componentWillUnmount() {
+        if (!this.isAuthenticatedAndHasAdminRole()) {
+            return;
+        }
+
         clearInterval(this.state.intervalId);
     }
 
     isAuthenticatedAndHasAdminRole = () => {
-        return store.getState().isAuthenticated && store.getState().role === 'admin';
+        return this.props.isAuthenticated && this.props.role === 'admin';
     }
 
     render() {
@@ -77,4 +84,11 @@ export class ScreensInventory extends Component {
     }
 }
 
-export default ScreensInventory;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.isAuthenticated,
+        role: state.role,
+    }
+};
+
+export default connect(mapStateToProps)(ScreensInventory);
