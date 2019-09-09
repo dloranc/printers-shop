@@ -1,4 +1,4 @@
-import { Product, AmountInput } from './Product';
+import { Product, AmountInput, AddToCartButton } from './Product';
 
 const defaultProps = {
   id: 'product-1',
@@ -6,6 +6,7 @@ const defaultProps = {
   type: 'Printer',
   price: 400,
   inStock: 10,
+  addToCart: () => {},
 }
 
 // eslint-disable-next-line no-undef
@@ -54,5 +55,43 @@ describe('A product compoment', () => {
     wrapper.find(AmountInput).simulate('change', { target: { value: 2 } })
 
     expect(wrapper.text()).toContain('Price: $800');
+  });
+
+  it('alerts the product has been added to the cart', () => {
+    const { wrapper } = setup();
+    const alert = jest.spyOn(window, 'alert').mockImplementation();
+
+    wrapper.find(AmountInput).simulate('change', { target: { value: 1 } });
+    wrapper.find(AddToCartButton).simulate('click');
+
+    expect(alert.mock.calls.length).toBe(1);
+
+    alert.mockRestore();
+  });
+
+  it('calls addToCart function', () => {
+    const mock = jest.fn();
+
+    const { wrapper } = setup({ addToCart: mock });
+    const alert = jest.spyOn(window, 'alert').mockImplementation();
+
+    wrapper.find(AmountInput).simulate('change', { target: { value: 1 } });
+    wrapper.find(AddToCartButton).simulate('click');
+
+    expect(mock).toHaveBeenCalled();
+
+    alert.mockRestore();
+  });
+
+  it('alerts it\'s not possible to add a product to the cart', () => {
+    const { wrapper } = setup();
+    const alert = jest.spyOn(window, 'alert').mockImplementation();
+
+    wrapper.find(AmountInput).simulate('change', { target: { value: 2000 } });
+    wrapper.find(AddToCartButton).simulate('click');
+
+    expect(alert.mock.calls.length).toBe(1);
+
+    alert.mockRestore();
   });
 });

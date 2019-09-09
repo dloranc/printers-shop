@@ -35,7 +35,7 @@ export const AmountInput = styled.input`
     width: 100%;
 `;
 
-const AddToCartButton = styled.button`
+export const AddToCartButton = styled.button`
     display: block;
     margin: 0 auto;
     margin-top: 1em;
