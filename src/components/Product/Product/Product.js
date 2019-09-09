@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { addToCart, removeFromCart } from './../../../store/cart/action-creators';
+import { addToCart } from './../../../store/cart/action-creators';
 
 const ProductCard = styled.div`
     width: 100%;
@@ -146,6 +146,5 @@ export default connect(
     null,
     {
         addToCart,
-        removeFromCart,
     }
 )(Product);
