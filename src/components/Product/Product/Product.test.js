@@ -12,37 +12,37 @@ const defaultProps = {
 const setup = buildSetup(Product, defaultProps);
 
 describe('A product compoment', () => {
-  it('should contain Printer ZX3 title', () => {
+  it('contain a "Printer ZX3" title', () => {
     const { wrapper } = setup();
 
     expect(wrapper.text()).toContain('Printer ZX3');
   });
 
-  it('should contain price per unit', () => {
+  it('contain price per unit', () => {
     const { wrapper } = setup();
 
     expect(wrapper.text()).toContain('Price per unit: $400');
   });
 
-  it('should contain how many products are in stock ("not available" if 0 products)', () => {
+  it('contain "not available" text if there are 0 products in stock', () => {
     const { wrapper } = setup({ inStock: 0 });
 
     expect(wrapper.text()).toContain('not available');
   });
 
-  it('should contain how many products are in stock ("last pieces" if 10 products)', () => {
+  it('contain "last pieces" text if there are 10 products in stock', () => {
     const { wrapper } = setup();
 
     expect(wrapper.text()).toContain('last pieces');
   });
 
-  it('should contain how many products are in stock ("medium supply" if 11 products)', () => {
+  it('contain "medium supply" text if there are 11 products in stock', () => {
     const { wrapper } = setup({ inStock: 11 });
 
     expect(wrapper.text()).toContain('medium supply');
   });
 
-  it('should contain how many products are in stock ("full supply" if 101 products)', () => {
+  it('contain "full supply" text if there are 101 products in stock', () => {
     const { wrapper } = setup({ inStock: 101 });
 
     expect(wrapper.text()).toContain('full supply');
