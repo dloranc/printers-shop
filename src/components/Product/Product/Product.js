@@ -29,7 +29,7 @@ const AmountLabel = styled(ProductLabel)`
     margin-top: 2em;
 `;
 
-const AmountInput = styled.input`
+export const AmountInput = styled.input`
     margin: 0.3em 0;
     padding: 0.3em 0.5em;
     width: 100%;

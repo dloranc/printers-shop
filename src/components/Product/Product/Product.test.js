@@ -1,4 +1,4 @@
-import { Product } from './Product';
+import { Product, AmountInput } from './Product';
 
 const defaultProps = {
   id: 'product-1',
@@ -46,5 +46,13 @@ describe('A product compoment', () => {
     const { wrapper } = setup({ inStock: 101 });
 
     expect(wrapper.text()).toContain('full supply');
+  });
+
+  it('increase a price when the amount of items to order increases', () => {
+    const { wrapper } = setup();
+
+    wrapper.find(AmountInput).simulate('change', { target: { value: 2 } })
+
+    expect(wrapper.text()).toContain('Price: $800');
   });
 });
