@@ -18,10 +18,10 @@ class NavBar extends React.Component {
     authLinks = () => {
         return (
             <>
-                <Link to="/sign-up">
+                <Link to="/sign-up" data-test="sign-up">
                     <Nav.Link as="span">Sign up</Nav.Link>
                 </Link>
-                <Link to="/sign-in">
+                <Link to="/sign-in" data-test="sign-in">
                     <Nav.Link as="span">Sign in</Nav.Link>
                 </Link>
             </>
@@ -31,17 +31,17 @@ class NavBar extends React.Component {
     navigationLinks = () => {
         return (
             <>
-                <Link to="/cart">
+                <Link to="/cart" data-test="cart">
                     <Nav.Link as="span">Cart</Nav.Link>
                 </Link>
 
-                <Link to="/orders">
+                <Link to="/orders" data-test="orders">
                     <Nav.Link as="span">Orders</Nav.Link>
                 </Link>
 
                 {this.adminLinks()}
 
-                <Nav.Link onClick={this.props.onLogout}>Log out</Nav.Link>
+                <Nav.Link onClick={this.props.onLogout} data-test="logout">Log out</Nav.Link>
             </>
         )
     }
@@ -49,7 +49,7 @@ class NavBar extends React.Component {
     adminLinks = () => {
         if (this.isAdmin()) {
             return (
-                <Link to="/inventory">
+                <Link to="/inventory" data-test="inventory">
                     <Nav.Link as="span">Inventory</Nav.Link>
                 </Link>
             )
