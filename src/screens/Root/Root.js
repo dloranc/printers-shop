@@ -1,15 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import SignUpFormScreen from '../SignUp/Form';
-import SignInFormScreen from '../SignIn/Form';
+import ScreensSignUpForm from '../SignUp/Form';
+import ScreensSignInForm from '../SignIn/Form';
 
-import Home from './../Home/Home';
+import ScreensHome from './../Home/Home';
 import ScreensShop from '../Shop/Shop';
 import ScreensCart from '../Cart/Cart';
 import ScreensOrders from '../Orders/Orders';
 import ScreensInventory from '../Inventory/Inventory';
-import NoMatch from './../NoMatch/NoMatch';
+import ScreensNoMatch from './../NoMatch/NoMatch';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -22,14 +22,14 @@ class ScreensRoot extends React.Component {
                 <Row>
                     <Col>
                         <Switch>
-                            <Route path="/" exact component={Home}/>
-                            <Route path="/sign-up" component={SignUpFormScreen}/>
-                            <Route path="/sign-in" component={SignInFormScreen}/>
+                            <Route path="/" exact component={ScreensHome}/>
+                            <Route path="/sign-up" component={ScreensSignUpForm}/>
+                            <Route path="/sign-in" component={ScreensSignInForm}/>
                             <Route path="/shop" component={ScreensShop}/>
                             <Route path="/cart" component={ScreensCart}/>
                             <Route path="/orders" component={ScreensOrders}/>
                             <Route path="/inventory" component={ScreensInventory}/>
-                            <Route component={NoMatch}/>
+                            <Route component={ScreensNoMatch}/>
                         </Switch>
                     </Col>
                 </Row>
