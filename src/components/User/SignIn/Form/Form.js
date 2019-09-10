@@ -82,6 +82,7 @@ class SignInForm extends React.Component {
                                 value={values.email}
                                 onChange={handleChange}
                                 isInvalid={!!errors.email}
+                                data-test="email"
                             />
 
                             <Form.Control.Feedback type="invalid">
@@ -98,6 +99,7 @@ class SignInForm extends React.Component {
                                 value={values.password}
                                 onChange={handleChange}
                                 isInvalid={!!errors.password}
+                                data-test="password"
                             />
 
                             <Form.Control.Feedback type="invalid">
@@ -105,7 +107,14 @@ class SignInForm extends React.Component {
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isSubmitting}>Sign in</Button>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={isSubmitting}
+                            data-test="sign-in-button"
+                        >
+                            Sign in
+                        </Button>
                     </Form>
                 )}
             />
