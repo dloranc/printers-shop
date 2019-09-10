@@ -5,7 +5,6 @@ describe('navbar', () => {
 
   it('has brand link to the /shop when the user is signed in and to / when not', () => {
     cy.get('[data-test=brand]')
-      .parent()
       .should('have.attr', 'href')
       .and('include', '/');
 
@@ -13,7 +12,6 @@ describe('navbar', () => {
     cy.visit('/');
 
     cy.get('[data-test=brand]')
-      .parent()
       .should('have.attr', 'href')
       .and('include', '/shop');
   });
