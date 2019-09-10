@@ -23,3 +23,17 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('login', () => {
+  sessionStorage.setItem('role', 'user');
+  sessionStorage.setItem('is-authenticated', true);
+});
+
+Cypress.Commands.add('loginAsAdmin', () => {
+  sessionStorage.setItem('role', 'admin');
+  sessionStorage.setItem('is-authenticated', true);
+});
+
+Cypress.Commands.add('logout', () => {
+  sessionStorage.clear();
+  cy.visit('/');
+});
