@@ -10,10 +10,10 @@ describe('sign in page', () => {
       .should('have.attr', 'type')
       .and('include', 'email');
 
-      cy.get('[data-cy=password]')
-        .type('mynameisjohn1')
-        .should('have.attr', 'type')
-        .and('include', 'password');
+    cy.get('[data-cy=password]')
+      .type('mynameisjohn1')
+      .should('have.attr', 'type')
+      .and('include', 'password');
 
     cy.get('[data-cy=sign-in-button]')
       .contains('Sign in')
