@@ -63,7 +63,7 @@ class NavBar extends React.Component {
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
                     <Link to={this.props.isAuthenticated ? '/shop' : '/'}>
-                        <Navbar.Brand as="span">
+                        <Navbar.Brand as="span" data-test="brand">
                             Printers &amp; Faxes Shop
                         </Navbar.Brand>
                     </Link>
