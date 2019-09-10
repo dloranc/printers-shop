@@ -24,7 +24,7 @@ class NavBar extends React.Component {
             <>
                 <Nav.Link as={Link}
                     to="/sign-up"
-                    data-test="sign-up"
+                    data-cy="sign-up"
                     active={this.isCurrentRoute('/sign-up')}
                 >
                     Sign up
@@ -32,7 +32,7 @@ class NavBar extends React.Component {
 
                 <Nav.Link as={Link}
                     to="/sign-in"
-                    data-test="sign-in"
+                    data-cy="sign-in"
                     active={this.isCurrentRoute('/sign-in')}
                 >
                     Sign in
@@ -46,7 +46,7 @@ class NavBar extends React.Component {
             <>
                 <Nav.Link as={Link}
                     to="/cart"
-                    data-test="cart"
+                    data-cy="cart"
                     active={this.isCurrentRoute('/cart')}
                 >
                     Cart
@@ -54,7 +54,7 @@ class NavBar extends React.Component {
 
                 <Nav.Link as={Link}
                     to="/orders"
-                    data-test="orders"
+                    data-cy="orders"
                     active={this.isCurrentRoute('/orders')}
                 >
                     Orders
@@ -64,7 +64,7 @@ class NavBar extends React.Component {
 
                 <Nav.Link
                     onClick={this.props.onLogout}
-                    data-test="logout"
+                    data-cy="logout"
                 >
                     Log out
                 </Nav.Link>
@@ -77,7 +77,7 @@ class NavBar extends React.Component {
             return (
                 <Nav.Link as={Link}
                     to="/inventory"
-                    data-test="inventory"
+                    data-cy="inventory"
                     active={this.isCurrentRoute('/inventory')}
                 >
                     Inventory
@@ -95,7 +95,7 @@ class NavBar extends React.Component {
                     <Navbar.Brand
                         as={Link}
                         to={this.props.isAuthenticated ? '/shop' : '/'}
-                        data-test="brand"
+                        data-cy="brand"
                     >
                         Printers &amp; Faxes Shop
                     </Navbar.Brand>
