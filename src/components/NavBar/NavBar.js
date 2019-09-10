@@ -22,12 +22,21 @@ class NavBar extends React.Component {
     authLinks = () => {
         return (
             <>
-                <Link to="/sign-up" data-test="sign-up">
-                    <Nav.Link as="span" active={this.isCurrentRoute('/sign-up')}>Sign up</Nav.Link>
-                </Link>
-                <Link to="/sign-in" data-test="sign-in">
-                    <Nav.Link as="span"active={this.isCurrentRoute('/sign-in')}>Sign in</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/sign-up"
+                    data-test="sign-up"
+                    active={this.isCurrentRoute('/sign-up')}
+                >
+                    Sign up
+                </Nav.Link>
+
+                <Nav.Link as={Link}
+                    to="/sign-in"
+                    data-test="sign-in"
+                    active={this.isCurrentRoute('/sign-in')}
+                >
+                    Sign in
+                </Nav.Link>
             </>
         )
     }
@@ -35,17 +44,30 @@ class NavBar extends React.Component {
     navigationLinks = () => {
         return (
             <>
-                <Link to="/cart" data-test="cart">
-                    <Nav.Link as="span" active={this.isCurrentRoute('/cart')}>Cart</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/cart"
+                    data-test="cart"
+                    active={this.isCurrentRoute('/cart')}
+                >
+                    Cart
+                </Nav.Link>
 
-                <Link to="/orders" data-test="orders">
-                    <Nav.Link as="span" active={this.isCurrentRoute('/orders')}>Orders</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/orders"
+                    data-test="orders"
+                    active={this.isCurrentRoute('/orders')}
+                >
+                    Orders
+                </Nav.Link>
 
                 {this.adminLinks()}
 
-                <Nav.Link onClick={this.props.onLogout} data-test="logout">Log out</Nav.Link>
+                <Nav.Link
+                    onClick={this.props.onLogout}
+                    data-test="logout"
+                >
+                    Log out
+                </Nav.Link>
             </>
         )
     }
@@ -53,9 +75,13 @@ class NavBar extends React.Component {
     adminLinks = () => {
         if (this.isAdmin()) {
             return (
-                <Link to="/inventory" data-test="inventory">
-                    <Nav.Link as="span" active={this.isCurrentRoute('/inventory')}>Inventory</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/inventory"
+                    data-test="inventory"
+                    active={this.isCurrentRoute('/inventory')}
+                >
+                    Inventory
+                </Nav.Link>
             )
         }
 
@@ -66,16 +92,18 @@ class NavBar extends React.Component {
         return (
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
-                    <Link to={this.props.isAuthenticated ? '/shop' : '/'}>
-                        <Navbar.Brand as="span" data-test="brand">
-                            Printers &amp; Faxes Shop
-                        </Navbar.Brand>
-                    </Link>
+                    <Navbar.Brand
+                        as={Link}
+                        to={this.props.isAuthenticated ? '/shop' : '/'}
+                        data-test="brand"
+                    >
+                        Printers &amp; Faxes Shop
+                    </Navbar.Brand>
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
+                        <Nav className="mr-auto" role="navigation">
                             {this.isAuthenticated() ? this.navigationLinks() : this.authLinks()}
                         </Nav>
                     </Navbar.Collapse>
