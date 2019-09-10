@@ -7,6 +7,10 @@ import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
+    isCurrentRoute = (route) => {
+        return this.props.location.pathname === route;
+    }
+
     isAuthenticated = () => {
         return this.props.isAuthenticated;
     }
@@ -19,10 +23,10 @@ class NavBar extends React.Component {
         return (
             <>
                 <Link to="/sign-up" data-test="sign-up">
-                    <Nav.Link as="span">Sign up</Nav.Link>
+                    <Nav.Link as="span" active={this.isCurrentRoute('/sign-up')}>Sign up</Nav.Link>
                 </Link>
                 <Link to="/sign-in" data-test="sign-in">
-                    <Nav.Link as="span">Sign in</Nav.Link>
+                    <Nav.Link as="span"active={this.isCurrentRoute('/sign-in')}>Sign in</Nav.Link>
                 </Link>
             </>
         )
@@ -32,11 +36,11 @@ class NavBar extends React.Component {
         return (
             <>
                 <Link to="/cart" data-test="cart">
-                    <Nav.Link as="span">Cart</Nav.Link>
+                    <Nav.Link as="span" active={this.isCurrentRoute('/cart')}>Cart</Nav.Link>
                 </Link>
 
                 <Link to="/orders" data-test="orders">
-                    <Nav.Link as="span">Orders</Nav.Link>
+                    <Nav.Link as="span" active={this.isCurrentRoute('/orders')}>Orders</Nav.Link>
                 </Link>
 
                 {this.adminLinks()}
@@ -50,7 +54,7 @@ class NavBar extends React.Component {
         if (this.isAdmin()) {
             return (
                 <Link to="/inventory" data-test="inventory">
-                    <Nav.Link as="span">Inventory</Nav.Link>
+                    <Nav.Link as="span" active={this.isCurrentRoute('/inventory')}>Inventory</Nav.Link>
                 </Link>
             )
         }
