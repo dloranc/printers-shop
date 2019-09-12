@@ -1,4 +1,7 @@
+import React from 'react';
 import { Product, AmountInput, AddToCartButton } from './Product';
+import renderer from 'react-test-renderer';
+
 
 const defaultProps = {
   id: 'product-1',
@@ -13,6 +16,21 @@ const defaultProps = {
 const setup = buildSetup(Product, defaultProps);
 
 describe('A product compoment', () => {
+  it('renders correctly', () => {
+    const tree = renderer
+      .create(
+        <Product
+          id="product-1"
+          name="ZX3"
+          type="Printer"
+          price={1000}
+          inStock={20}
+        />
+      )
+      .toJSON();
+      expect(tree).toMatchSnapshot();
+  });
+
   it('contain a "Printer ZX3" title', () => {
     const { wrapper } = setup();
 
