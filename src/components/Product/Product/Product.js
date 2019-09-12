@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { addToCart } from './../../../store/cart/action-creators';
 
@@ -136,6 +137,7 @@ export class Product extends Component {
                     <ProductLabel>Price:</ProductLabel> ${this.state.amount * this.props.price}
                 </ProductRow>
 
+                <Link to={'/product/' + this.props.id}>View product</Link>
                 <AddToCartButton disabled={this.state.amount === 0} onClick={this.addToCart}>Add to cart</AddToCartButton>
             </ProductCard>
         )

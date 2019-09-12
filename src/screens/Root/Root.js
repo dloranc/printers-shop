@@ -7,6 +7,7 @@ import ScreensSignInForm from '../SignIn/Form';
 
 import ScreensHome from './../Home/Home';
 import ScreensShop from '../Shop/Shop';
+import ScreensProduct from '../Product/Product';
 import ScreensCart from '../Cart/Cart';
 import ScreensOrders from '../Orders/Orders';
 import ScreensInventory from '../Inventory/Inventory';
@@ -23,6 +24,7 @@ const routes = [
     { path: '/sign-up', name: 'Sign up', Component: ScreensSignUpForm, exact: false },
     { path: '/sign-in', name: 'Sign in', Component: ScreensSignInForm, exact: false },
     { path: '/shop', name: 'Shop', Component: ScreensShop, exact: false },
+    { path: '/product/:id', name: 'Product', Component: ScreensProduct, exact: false },
     { path: '/cart', name: 'Cart', Component: ScreensCart, exact: false },
     { path: '/orders', name: 'Orders', Component: ScreensOrders, exact: false },
     { path: '/inventory', name: 'Inventory', Component: ScreensInventory, exact: false },
@@ -48,7 +50,7 @@ class ScreensRoot extends React.Component {
                                         <Route key={path} exact={exact} path={path}>
                                             {({ match }) => (
                                                 <div className="page">
-                                                    <Component />
+                                                    <Component match={match} />
                                                 </div>
                                             )}
                                         </Route>
