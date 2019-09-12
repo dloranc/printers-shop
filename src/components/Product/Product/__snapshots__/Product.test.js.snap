@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A product compoment renders correctly 1`] = `
+exports[`A product compoment renders ZX3 Printer with price $1000 and medium supply stock 1`] = `
 <div
   className="sc-bdVaJa gDmiUu"
 >

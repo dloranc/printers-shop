@@ -16,7 +16,7 @@ const defaultProps = {
 const setup = buildSetup(Product, defaultProps);
 
 describe('A product compoment', () => {
-  it('renders correctly', () => {
+  it('renders ZX3 Printer with price $1000 and medium supply stock', () => {
     const tree = renderer
       .create(
         <Product
