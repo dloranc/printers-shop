@@ -7,6 +7,10 @@ import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
+    isCurrentRoute = (route) => {
+        return this.props.location.pathname === route;
+    }
+
     isAuthenticated = () => {
         return this.props.isAuthenticated;
     }
@@ -18,12 +22,21 @@ class NavBar extends React.Component {
     authLinks = () => {
         return (
             <>
-                <Link to="/sign-up">
-                    <Nav.Link as="span">Sign up</Nav.Link>
-                </Link>
-                <Link to="/sign-in">
-                    <Nav.Link as="span">Sign in</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/sign-up"
+                    data-cy="sign-up"
+                    active={this.isCurrentRoute('/sign-up')}
+                >
+                    Sign up
+                </Nav.Link>
+
+                <Nav.Link as={Link}
+                    to="/sign-in"
+                    data-cy="sign-in"
+                    active={this.isCurrentRoute('/sign-in')}
+                >
+                    Sign in
+                </Nav.Link>
             </>
         )
     }
@@ -31,17 +44,30 @@ class NavBar extends React.Component {
     navigationLinks = () => {
         return (
             <>
-                <Link to="/cart">
-                    <Nav.Link as="span">Cart</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/cart"
+                    data-cy="cart"
+                    active={this.isCurrentRoute('/cart')}
+                >
+                    Cart
+                </Nav.Link>
 
-                <Link to="/orders">
-                    <Nav.Link as="span">Orders</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/orders"
+                    data-cy="orders"
+                    active={this.isCurrentRoute('/orders')}
+                >
+                    Orders
+                </Nav.Link>
 
                 {this.adminLinks()}
 
-                <Nav.Link onClick={this.props.onLogout}>Log out</Nav.Link>
+                <Nav.Link
+                    onClick={this.props.onLogout}
+                    data-cy="logout"
+                >
+                    Log out
+                </Nav.Link>
             </>
         )
     }
@@ -49,9 +75,13 @@ class NavBar extends React.Component {
     adminLinks = () => {
         if (this.isAdmin()) {
             return (
-                <Link to="/inventory">
-                    <Nav.Link as="span">Inventory</Nav.Link>
-                </Link>
+                <Nav.Link as={Link}
+                    to="/inventory"
+                    data-cy="inventory"
+                    active={this.isCurrentRoute('/inventory')}
+                >
+                    Inventory
+                </Nav.Link>
             )
         }
 
@@ -62,16 +92,18 @@ class NavBar extends React.Component {
         return (
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
-                    <Link to={this.props.isAuthenticated ? '/shop' : '/'}>
-                        <Navbar.Brand as="span">
-                            Printers &amp; Faxes Shop
-                        </Navbar.Brand>
-                    </Link>
+                    <Navbar.Brand
+                        as={Link}
+                        to={this.props.isAuthenticated ? '/shop' : '/'}
+                        data-cy="brand"
+                    >
+                        Printers &amp; Faxes Shop
+                    </Navbar.Brand>
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
+                        <Nav className="mr-auto" role="navigation">
                             {this.isAuthenticated() ? this.navigationLinks() : this.authLinks()}
                         </Nav>
                     </Navbar.Collapse>

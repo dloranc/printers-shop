@@ -86,8 +86,8 @@ export class ScreensInventory extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.isAuthenticated,
-        role: state.role,
+        isAuthenticated: state.user.isAuthenticated,
+        role: state.user.role,
     }
 };
 

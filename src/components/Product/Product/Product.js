@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { addToCart } from './../../../store/cart/action-creators';
 
 const ProductCard = styled.div`
     width: 100%;
@@ -27,13 +29,13 @@ const AmountLabel = styled(ProductLabel)`
     margin-top: 2em;
 `;
 
-const AmountInput = styled.input`
+export const AmountInput = styled.input`
     margin: 0.3em 0;
     padding: 0.3em 0.5em;
     width: 100%;
 `;
 
-const AddToCartButton = styled.button`
+export const AddToCartButton = styled.button`
     display: block;
     margin: 0 auto;
     margin-top: 1em;
@@ -79,7 +81,14 @@ export class Product extends Component {
             window.alert('Sorry, but your requested amount of this product exceeds our supply!');
         } else {
             if (this.state.amount > 0) {
-                // TODO: add to cart (Redux store)
+                this.props.addToCart({
+                    id: this.props.id,
+                    name: this.props.name,
+                    type: this.props.type,
+                    price: this.props.price,
+                    amount: this.state.amount,
+                });
+
                 window.alert('Added to cart!');
             }
         }
@@ -133,4 +142,9 @@ export class Product extends Component {
     }
 }
 
-export default Product;
+export default connect(
+    null,
+    {
+        addToCart,
+    }
+)(Product);

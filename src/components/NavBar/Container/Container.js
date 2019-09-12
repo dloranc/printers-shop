@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { logout } from './../../../store/action-creators';
+import { logout } from './../../../store/user/action-creators';
 
 import Navbar from './../NavBar';
 
@@ -27,8 +27,8 @@ class NavBarContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.isAuthenticated,
-        role: state.role,
+        isAuthenticated: state.user.isAuthenticated,
+        role: state.user.role,
     }
 };
 

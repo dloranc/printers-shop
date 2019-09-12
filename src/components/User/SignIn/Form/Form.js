@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 
-import { authenticate, setRole } from './../../../../store/action-creators';
+import { authenticate, setRole } from './../../../../store/user/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -84,6 +84,7 @@ class SignInForm extends React.Component {
                                 name="email"
                                 value={values.email}
                                 onChange={handleChange}
+                                data-cy="email"
                                 isInvalid={!!errors.email && touched.email}
                                 onBlur={handleBlur}
                             />
@@ -101,6 +102,7 @@ class SignInForm extends React.Component {
                                 name="password"
                                 value={values.password}
                                 onChange={handleChange}
+                                data-cy="password"
                                 isInvalid={!!errors.password && touched.password}
                                 onBlur={handleBlur}
                             />
@@ -110,7 +112,14 @@ class SignInForm extends React.Component {
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>Sign in</Button>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={!isValid || isSubmitting}
+                            data-cy="sign-in-button"
+                        >
+                            Sign in
+                        </Button>
                     </Form>
                 )}
             />
