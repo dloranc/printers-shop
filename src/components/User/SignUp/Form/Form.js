@@ -81,6 +81,9 @@ class SignUpForm extends React.Component {
                         values,
                         errors,
                         isSubmitting,
+                        handleBlur,
+                        isValid,
+                        touched,
                     }
                 ) => (
                     <Form noValidate onSubmit={handleSubmit}>
@@ -93,12 +96,13 @@ class SignUpForm extends React.Component {
                                 type="email"
                                 name="email"
                                 value={values.email}
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                isInvalid={!!errors.email}
+                                isInvalid={!!errors.email && touched.email}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.email}
+                                {touched.email && errors.email}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -109,12 +113,13 @@ class SignUpForm extends React.Component {
                                 type="text"
                                 name="firstName"
                                 value={values.firstName}
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                isInvalid={!!errors.firstName}
+                                isInvalid={!!errors.firstName && touched.firstName}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.firstName}
+                                {touched.firstName && errors.firstName}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -125,12 +130,13 @@ class SignUpForm extends React.Component {
                                 type="text"
                                 name="lastName"
                                 value={values.lastName}
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                isInvalid={!!errors.lastName}
+                                isInvalid={!!errors.lastName && touched.lastName}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.lastName}
+                                {touched.lastName && errors.lastName}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -140,8 +146,9 @@ class SignUpForm extends React.Component {
                             <Form.Control
                                 as="select"
                                 name="company"
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                isInvalid={!!errors.company}
+                                isInvalid={!!errors.company && touched.company}
                             >
                                 <option value="">Select a company</option>
 
@@ -157,7 +164,7 @@ class SignUpForm extends React.Component {
                             </Form.Control>
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.company}
+                                {touched.company && errors.company}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -168,12 +175,13 @@ class SignUpForm extends React.Component {
                                 type="password"
                                 name="password"
                                 value={values.password}
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                isInvalid={!!errors.password}
+                                isInvalid={!!errors.password && touched.password}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.password}
+                                {touched.password && errors.password}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -184,16 +192,17 @@ class SignUpForm extends React.Component {
                                 type="password"
                                 name="confirmPassword"
                                 value={values.confirmPassword}
+                                onBlur={handleBlur}
                                 onChange={handleChange}
-                                isInvalid={!!errors.confirmPassword}
+                                isInvalid={!!errors.confirmPassword && touched.confirmPassword}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.confirmPassword}
+                                {touched.confirmPassword && errors.confirmPassword}
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isSubmitting}>Sign up</Button>
+                        <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>Sign up</Button>
                     </Form>
                 )}
             />
