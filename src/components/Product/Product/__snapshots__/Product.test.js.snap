@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A product compoment renders ZX3 Printer with price $1000 and medium supply stock 1`] = `
+exports[`A product compoment renders ZX3 Printer with price $400 and last pieces in stock 1`] = `
 <div
   className="sc-bdVaJa gDmiUu"
 >
@@ -20,7 +20,7 @@ exports[`A product compoment renders ZX3 Printer with price $1000 and medium sup
       Price per unit:
     </span>
      $
-    1000
+    400
   </div>
   <div
     className="sc-htpNat laTiSR"
@@ -31,7 +31,7 @@ exports[`A product compoment renders ZX3 Printer with price $1000 and medium sup
       In stock:
     </span>
      
-    medium supply
+    last pieces
   </div>
   <label
     className="sc-bxivhb sc-ifAKCX jCMYwx"
@@ -56,7 +56,7 @@ exports[`A product compoment renders ZX3 Printer with price $1000 and medium sup
       Price:
     </span>
      $
-    1000
+    400
   </div>
   <button
     className="sc-bZQynM hxtQYt"

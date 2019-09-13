@@ -16,19 +16,12 @@ const defaultProps = {
 const setup = buildSetup(Product, defaultProps);
 
 describe('A product compoment', () => {
-  it('renders ZX3 Printer with price $1000 and medium supply stock', () => {
-    const tree = renderer
-      .create(
-        <Product
-          id="product-1"
-          name="ZX3"
-          type="Printer"
-          price={1000}
-          inStock={20}
-        />
-      )
-      .toJSON();
-      expect(tree).toMatchSnapshot();
+  it('renders ZX3 Printer with price $400 and last pieces in stock', () => {
+    const { wrapper } = setup();
+
+    const tree = renderer.create(wrapper).toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 
   it('contain a "Printer ZX3" title', () => {
