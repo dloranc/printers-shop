@@ -23,11 +23,16 @@ export class ProductListContainer extends Component {
             .catch(error => console.log(error));
     }
 
+    hasProducts = () => {
+        return this.state.products.length > 0;
+    }
+
     render() {
         return (
             <ProductList>
-                {
+                { this.hasProducts() ?
                     this.state.products.map(product => <Product key={product.id} {...product}></Product>)
+                    : 'No products in the store yet.'
                 }
             </ProductList>
         )
