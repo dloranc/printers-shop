@@ -9,8 +9,10 @@
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "react-transition-group": "^4.3.0",
     "recharts": "^1.7.1",
     "redux-starter-kit": "^0.6.3",
     "styled-components": "^4.3.2",
@@ -21,7 +23,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json": "json-server database/db.json"
+    "json": "json-server database/db.json",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +43,11 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.15.1"
+    "cypress": "^3.4.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint-plugin-cypress": "^2.6.1",
+    "json-server": "^0.15.1",
+    "redux-mock-store": "^1.5.3"
   }
 }

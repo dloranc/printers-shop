@@ -2,8 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { connect } from 'react-redux';
 
-import { store, setRole } from './../../../../store';
+import { authenticate, setRole } from './../../../../store/user/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -43,9 +44,9 @@ class SignInForm extends React.Component {
     }
 
     authenticate(role) {
-        store.dispatch({ type: 'AUTHENTICATE' });
-        store.dispatch(setRole(role));
-        window.sessionStorage.setItem('is-authenticated', true);
+        this.props.authenticate();
+        this.props.setRole(role);
+        window.sessionStorage.setItem('is-authenticated', 'true');
         window.sessionStorage.setItem('role', role);
 
         this.props.history.push('/shop');
@@ -66,7 +67,10 @@ class SignInForm extends React.Component {
                         handleChange,
                         values,
                         errors,
+                        touched,
                         isSubmitting,
+                        handleBlur,
+                        isValid,
                     }
                 ) => (
                     <Form noValidate onSubmit={handleSubmit}>
@@ -80,11 +84,13 @@ class SignInForm extends React.Component {
                                 name="email"
                                 value={values.email}
                                 onChange={handleChange}
-                                isInvalid={!!errors.email}
+                                data-cy="email"
+                                isInvalid={!!errors.email && touched.email}
+                                onBlur={handleBlur}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.email}
+                                {touched.email && errors.email}
                             </Form.Control.Feedback>
                         </Form.Group>
 
@@ -96,15 +102,24 @@ class SignInForm extends React.Component {
                                 name="password"
                                 value={values.password}
                                 onChange={handleChange}
-                                isInvalid={!!errors.password}
+                                data-cy="password"
+                                isInvalid={!!errors.password && touched.password}
+                                onBlur={handleBlur}
                             />
 
                             <Form.Control.Feedback type="invalid">
-                                {errors.password}
+                                {touched.password && errors.password}
                             </Form.Control.Feedback>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" disabled={isSubmitting}>Sign in</Button>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            disabled={!isValid || isSubmitting}
+                            data-cy="sign-in-button"
+                        >
+                            Sign in
+                        </Button>
                     </Form>
                 )}
             />
@@ -112,4 +127,12 @@ class SignInForm extends React.Component {
     }
 }
 
-export default withRouter(SignInForm);
+const withRedux = connect(
+    null,
+    {
+        authenticate,
+        setRole,
+    },
+)(SignInForm);
+
+export default withRouter(withRedux);

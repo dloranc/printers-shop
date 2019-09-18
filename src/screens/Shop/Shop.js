@@ -1,15 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
-import { store } from './../../store';
+import { connect } from 'react-redux';
 
 import ProductListContainer from './../../components/Product/List/Container/Container';
 
 class ScreensShop extends React.Component {
     render() {
-        const isAuthenticated = store.getState().isAuthenticated;
-
-        if (isAuthenticated) {
+        if (this.props.isAuthenticated) {
             return <ProductListContainer></ProductListContainer>;
         }
 
@@ -17,4 +14,10 @@ class ScreensShop extends React.Component {
     }
 }
 
-export default ScreensShop;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.user.isAuthenticated,
+    }
+};
+
+export default connect(mapStateToProps)(ScreensShop);
