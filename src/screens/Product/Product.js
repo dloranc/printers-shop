@@ -19,6 +19,10 @@ class ScreensProduct extends Component {
             }
 
             if (error) {
+              if (error.response.status === 404) {
+                return <Redirect to='/404'/>
+              }
+
               return <p>{error.message}</p>
             }
 
