@@ -20,7 +20,7 @@ export class ProductListContainer extends Component {
             .then(response => {
                 this.setState({ products: response.data });
             })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
     }
 
     hasProducts = () => {
