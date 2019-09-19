@@ -48,6 +48,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint-plugin-cypress": "^2.6.1",
     "json-server": "^0.15.1",
+    "redux-immutable-state-invariant": "^2.1.0",
     "redux-mock-store": "^1.5.3"
   }
 }
