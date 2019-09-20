@@ -1,4 +1,5 @@
-import { Product, AmountInput, AddToCartButton } from './Product';
+import { Product } from './Product';
+import ChangeAmount from './ChangeAmount/ChangeAmount';
 
 const defaultProps = {
   id: 'product-1',
@@ -52,46 +53,8 @@ describe('A product compoment', () => {
   it('increase a price when the amount of items to order increases', () => {
     const { wrapper } = setup();
 
-    wrapper.find(AmountInput).simulate('change', { target: { value: 2 } })
+    wrapper.find(ChangeAmount).simulate('change', { target: { value: 2 } })
 
     expect(wrapper.text()).toContain('Price: $800');
-  });
-
-  it('alerts the product has been added to the cart', () => {
-    const { wrapper } = setup();
-    const alert = jest.spyOn(window, 'alert').mockImplementation();
-
-    wrapper.find(AmountInput).simulate('change', { target: { value: 1 } });
-    wrapper.find(AddToCartButton).simulate('click');
-
-    expect(alert.mock.calls.length).toBe(1);
-
-    alert.mockRestore();
-  });
-
-  it('calls addToCart function', () => {
-    const mock = jest.fn();
-
-    const { wrapper } = setup({ addToCart: mock });
-    const alert = jest.spyOn(window, 'alert').mockImplementation();
-
-    wrapper.find(AmountInput).simulate('change', { target: { value: 1 } });
-    wrapper.find(AddToCartButton).simulate('click');
-
-    expect(mock).toHaveBeenCalled();
-
-    alert.mockRestore();
-  });
-
-  it('alerts it\'s not possible to add a product to the cart', () => {
-    const { wrapper } = setup();
-    const alert = jest.spyOn(window, 'alert').mockImplementation();
-
-    wrapper.find(AmountInput).simulate('change', { target: { value: 2000 } });
-    wrapper.find(AddToCartButton).simulate('click');
-
-    expect(alert.mock.calls.length).toBe(1);
-
-    alert.mockRestore();
   });
 });
