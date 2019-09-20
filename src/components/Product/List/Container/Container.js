@@ -20,14 +20,28 @@ export class ProductListContainer extends Component {
             .then(response => {
                 this.setState({ products: response.data });
             })
-            .catch(error => console.log(error));
+            .catch(error => console.error(error));
+    }
+
+    hasProducts = () => {
+        return this.state.products.length > 0;
+    }
+
+    showProducts = () => {
+        return this.state.products.map(
+            product => <Product key={product.id} {...product}></Product>
+        );
+    }
+
+    showEmptyMessage = () => {
+        return 'No products in the store yet.';
     }
 
     render() {
         return (
             <ProductList>
                 {
-                    this.state.products.map(product => <Product key={product.id} {...product}></Product>)
+                    this.hasProducts() ? this.showProducts() : this.showEmptyMessage()
                 }
             </ProductList>
         )

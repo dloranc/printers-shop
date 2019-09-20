@@ -34,7 +34,9 @@ class SignInForm extends React.Component {
 
                     actions.setSubmitting(false);
                 }
-            }).catch(() => {
+            }).catch(error => {
+                console.error(error)
+
                 actions.setErrors({
                     email: 'Something went wrong.',
                 });

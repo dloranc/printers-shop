@@ -14,6 +14,14 @@ const defaultProps = {
 const setup = buildSetup(Product, defaultProps);
 
 describe('A product compoment', () => {
+  it('renders ZX3 Printer with price $400 and last pieces in stock', () => {
+    const { wrapper } = setup();
+
+    const tree = renderer.create(wrapper).toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
   it('contain a "Printer ZX3" title', () => {
     const { wrapper } = setup();
 
