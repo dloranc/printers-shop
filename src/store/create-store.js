@@ -15,7 +15,10 @@ const middleware = process.env.NODE_ENV !== 'production' ?
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-      applyMiddleware(thunk)
+      applyMiddleware(
+        ...middleware,
+        thunk
+      )
     ),
 );
 
