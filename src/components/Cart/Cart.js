@@ -11,7 +11,9 @@ export class Cart extends Component {
 
         <CartProductList/>
 
-        {this.props.products.length > 0 && <Button variant="primary" type="submit">Buy</Button>}
+        {this.props.products.length > 0 &&
+          <Button variant="primary" type="submit">Order</Button>
+        }
       </>
     )
   }
