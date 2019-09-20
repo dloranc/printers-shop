@@ -1,6 +1,6 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
+import thunk from 'redux-thunk';
 import user from './user/reducer';
 import cart from './cart/reducer';
 
@@ -15,8 +15,8 @@ const middleware = process.env.NODE_ENV !== 'production' ?
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-      applyMiddleware(...middleware)
-    )
+      applyMiddleware(thunk)
+    ),
 );
 
 export default store;
