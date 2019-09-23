@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import  { Helmet } from 'react-helmet';
 
 class ScreensHome extends Component {
   render() {
     if (!this.props.isAuthenticated) {
       return (
-        <div className="home">
-          <h1>Home</h1>
+        <>
+          <Helmet>
+            <title>Home - Printers Shop</title>
+          </Helmet>
 
-          <p>Please, sign up or log in to see our products.</p>
-        </div>
+          <div className="home">
+            <h1>Home</h1>
+
+            <p>Please, sign up or log in to see our products.</p>
+          </div>
+        </>
       );
     }
 

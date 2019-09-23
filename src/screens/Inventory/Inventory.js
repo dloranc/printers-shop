@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import { ResponsiveContainer, LineChart, Line, Tooltip, CartesianGrid, YAxis, XAxis } from 'recharts';
 
@@ -65,18 +66,24 @@ export class ScreensInventory extends Component {
     render() {
         if (this.isAuthenticatedAndHasAdminRole()) {
             return (
-                <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
-                    <LineChart data={this.state.data}>
-                        <YAxis tickFormatter={(value) => `$${value}`}/>
-                        <XAxis dataKey="month" tickMargin={10}/>
+                <>
+                    <Helmet>
+                        <title>Inventory - Printers Shop</title>
+                    </Helmet>
 
-                        <CartesianGrid strokeDasharray="3 3"/>
+                    <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
+                        <LineChart data={this.state.data}>
+                            <YAxis tickFormatter={(value) => `$${value}`}/>
+                            <XAxis dataKey="month" tickMargin={10}/>
 
-                        <Line name="price" type="linear" dataKey="value" isAnimationActive={false}/>
+                            <CartesianGrid strokeDasharray="3 3"/>
 
-                        <Tooltip/>
-                    </LineChart>
-                </ResponsiveContainer>
+                            <Line name="price" type="linear" dataKey="value" isAnimationActive={false}/>
+
+                            <Tooltip/>
+                        </LineChart>
+                    </ResponsiveContainer>
+                </>
             );
         }
 

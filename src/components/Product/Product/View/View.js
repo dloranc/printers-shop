@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { inStock } from '../utils';
 import ChangeAmount from "./../ChangeAmount/ChangeAmount";
 import AddToCartButton from '../AddToCartButton/AddToCartButton';
@@ -23,6 +24,10 @@ export class ProductView extends Component {
 
     return (
       <>
+        <Helmet>
+          <title>{product.type} {product.name} - Printers Shop</title>
+        </Helmet>
+
         <h1>{product.type} {product.name}</h1>
 
         <div>Price per unit: ${product.price}</div>

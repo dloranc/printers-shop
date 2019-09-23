@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { Fetcher } from '../../components/Fetcher/Fetcher';
 import ProductView from '../../components/Product/Product/View/View';
 
@@ -12,25 +13,31 @@ class ScreensProduct extends Component {
       const url = `http://localhost:4000/products/${productId}`;
 
       return (
-        <Fetcher url={url}>
-          {({ data, isLoading, error }) => {
-            if (isLoading) {
-              return <p>Loading...</p>
-            }
+        <>
+          <Helmet>
+            <title>Product - Printers Shop</title>
+          </Helmet>
 
-            if (error) {
-              if (error.response.status === 404) {
-                return <Redirect to='/404'/>
+          <Fetcher url={url}>
+            {({ data, isLoading, error }) => {
+              if (isLoading) {
+                return <p>Loading...</p>
               }
 
-              return <p>{error.message}</p>
-            }
+              if (error) {
+                if (error.response.status === 404) {
+                  return <Redirect to='/404'/>
+                }
 
-            if (!isLoading) {
-              return <ProductView product={data}/>
-            }
-          }}
-        </Fetcher>
+                return <p>{error.message}</p>
+              }
+
+              if (!isLoading) {
+                return <ProductView product={data}/>
+              }
+            }}
+          </Fetcher>
+        </>
       )
     }
 
