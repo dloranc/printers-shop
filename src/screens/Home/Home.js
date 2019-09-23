@@ -33,7 +33,7 @@ class ScreensHome extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.isAuthenticated
-  }
+  };
 };
 
 export default connect(mapStateToProps)(ScreensHome);

@@ -21,7 +21,7 @@ class ScreensCart extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.isAuthenticated
-  }
+  };
 };
 
 export default connect(mapStateToProps)(ScreensCart);

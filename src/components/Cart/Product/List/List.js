@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
 
 export class CartProductList extends Component {
@@ -59,7 +59,7 @@ export class CartProductList extends Component {
           </tbody>
         </Table>
       </>
-    )
+    );
   }
 
   showCartIsEmpty = () => {
@@ -75,14 +75,14 @@ export class CartProductList extends Component {
 
   render() {
     return this.props.products.length > 0 ?
-      this.showProductList() : this.showCartIsEmpty()
+      this.showProductList() : this.showCartIsEmpty();
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     products: state.cart
-  }
+  };
 };
 
 export default connect(mapStateToProps)(CartProductList);

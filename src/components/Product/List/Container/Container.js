@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -44,7 +44,7 @@ export class ProductListContainer extends Component {
             this.hasProducts() ? this.showProducts() : this.showEmptyMessage()
           }
         </ProductList>
-      )
+      );
     }
 }
 

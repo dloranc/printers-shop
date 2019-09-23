@@ -12,4 +12,4 @@ export const inStock = inStock => {
   }
 
   return 'not available';
-}
+};

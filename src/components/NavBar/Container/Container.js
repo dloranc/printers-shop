@@ -29,7 +29,7 @@ class NavBarContainer extends React.Component {
         onLogout={this.handleLogout}
         {...this.props}
       />
-    )
+    );
   }
 }
 
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.isAuthenticated,
     role: state.user.role
-  }
+  };
 };
 
 const withRedux = connect(
