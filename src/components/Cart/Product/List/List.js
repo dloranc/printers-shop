@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
 
+import { getProductsFromCart } from '../../../../store/cart/selectors';
+
 export class CartProductList extends Component {
   static propTypes = {
     products: PropTypes.arrayOf(PropTypes.shape({
@@ -81,7 +83,7 @@ export class CartProductList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.cart
+    products: getProductsFromCart(state)
   };
 };
 
