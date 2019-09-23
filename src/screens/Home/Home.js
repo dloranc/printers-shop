@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import  { Helmet } from 'react-helmet';
 
 class ScreensHome extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
+  }
+
   render() {
     if (!this.props.isAuthenticated) {
       return (
@@ -27,7 +32,7 @@ class ScreensHome extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      isAuthenticated: state.user.isAuthenticated,
+    isAuthenticated: state.user.isAuthenticated
   }
 };
 

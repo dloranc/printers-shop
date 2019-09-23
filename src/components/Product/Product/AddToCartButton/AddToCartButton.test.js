@@ -6,11 +6,11 @@ const defaultProps = {
     name: 'ZX3',
     type: 'Printer',
     price: 400,
-    inStock: 10,
+    inStock: 10
   },
   amount: 1,
-  addToCart: () => {},
-}
+  addToCart: () => {}
+};
 
 // eslint-disable-next-line no-undef
 const setup = buildSetup(AddToCartButton, defaultProps);
@@ -19,18 +19,18 @@ let alert = null;
 describe('An AddToCartButton compoment', () => {
   beforeEach(() => {
     alert = jest.spyOn(window, 'alert').mockImplementation();
-  })
+  });
 
   afterEach(() => {
     alert.mockRestore();
-  })
+  });
 
   it('alerts the product has been added to the cart', () => {
     const { wrapper } = setup();
 
     wrapper.simulate('click');
 
-    expect(alert.mock.calls.length).toBe(1);
+    expect(alert.mock.calls).toHaveLength(1);
   });
 
   it('calls addToCart function', () => {
@@ -48,12 +48,12 @@ describe('An AddToCartButton compoment', () => {
 
   it('alerts it\'s not possible to add a product to the cart', () => {
     const { wrapper } = setup({
-      amount: 100,
+      amount: 100
     });
 
     wrapper.simulate('click');
 
-    expect(alert.mock.calls.length).toBe(1);
+    expect(alert.mock.calls).toHaveLength(1);
     expect(alert.mock.calls[0][0]).toContain('exceeds our supply');
   });
 });

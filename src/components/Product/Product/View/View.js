@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { inStock } from '../utils';
-import ChangeAmount from "./../ChangeAmount/ChangeAmount";
+import ChangeAmount from './../ChangeAmount/ChangeAmount';
 import AddToCartButton from '../AddToCartButton/AddToCartButton';
 
 export class ProductView extends Component {
+  static propTypes = {
+    product: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+      ]),
+      inStock: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+      ])
+    }).isRequired
+  }
+
   state = {
     amount: 1
   }
@@ -13,9 +30,9 @@ export class ProductView extends Component {
     const value = event.target.value;
 
     if (value < 0) {
-        this.setState({ amount: 0 });
+      this.setState({ amount: 0 });
     } else {
-        this.setState({ amount: value });
+      this.setState({ amount: value });
     }
   }
 
@@ -40,7 +57,7 @@ export class ProductView extends Component {
 
         <AddToCartButton amount={this.state.amount} product={product}/>
       </>
-    )
+    );
   }
 }
 

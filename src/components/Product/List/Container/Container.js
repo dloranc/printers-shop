@@ -12,39 +12,39 @@ const ProductList = styled.div`
 
 export class ProductListContainer extends Component {
     state = {
-        products: [],
+      products: []
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/products')
-            .then(response => {
-                this.setState({ products: response.data });
-            })
-            .catch(error => console.error(error));
+      axios.get('http://localhost:4000/products')
+        .then(response => {
+          this.setState({ products: response.data });
+        })
+        .catch(error => console.error(error));
     }
 
     hasProducts = () => {
-        return this.state.products.length > 0;
+      return this.state.products.length > 0;
     }
 
     showProducts = () => {
-        return this.state.products.map(
-            product => <Product key={product.id} {...product}></Product>
-        );
+      return this.state.products.map(
+        product => <Product key={product.id} {...product}></Product>
+      );
     }
 
     showEmptyMessage = () => {
-        return 'No products in the store yet.';
+      return 'No products in the store yet.';
     }
 
     render() {
-        return (
-            <ProductList>
-                {
-                    this.hasProducts() ? this.showProducts() : this.showEmptyMessage()
-                }
-            </ProductList>
-        )
+      return (
+        <ProductList>
+          {
+            this.hasProducts() ? this.showProducts() : this.showEmptyMessage()
+          }
+        </ProductList>
+      )
     }
 }
 

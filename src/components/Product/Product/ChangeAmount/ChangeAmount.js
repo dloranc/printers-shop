@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ProductLabel } from './../ProductLabel/ProductLabel';
 
@@ -13,6 +14,14 @@ export const AmountInput = styled.input`
 `;
 
 export class ChangeAmount extends Component {
+  static propTypes = {
+    amount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    onChange: PropTypes.func.isRequired
+  }
+
   state = {
     amount: 1
   }
@@ -35,7 +44,7 @@ export class ChangeAmount extends Component {
           onChange={this.props.onChange}
         />
       </div>
-    )
+    );
   }
 }
 

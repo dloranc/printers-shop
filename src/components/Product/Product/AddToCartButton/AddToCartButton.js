@@ -1,27 +1,38 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { addToCart } from './../../../../store/cart/action-creators';
 
 export const Button = styled.button`
-    display: block;
-    margin: ${props => props.center ? '0 auto' : '0'};
-    margin-top: 1em;
-    padding: 0.6em 1em;
-    color: white;
-    background: #007bff;
-    border: 0;
+  display: block;
+  margin: ${props => props.center ? '0 auto' : '0'};
+  margin-top: 1em;
+  padding: 0.6em 1em;
+  color: white;
+  background: #007bff;
+  border: 0;
 
-    &[disabled] {
-        background: #eee;
-    }
+  &[disabled] {
+    background: #eee;
+  }
 
-    :hover {
-        background: #118cff;
-    }
+  :hover {
+    background: #118cff;
+  }
 `;
 
 export class AddToCartButton extends Component {
+  static propTypes = {
+    amount: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    product: PropTypes.object.isRequired,
+    addToCart: PropTypes.func.isRequired,
+    center: PropTypes.bool
+  }
+
   addToCart = () => {
     if (this.props.amount > this.props.product.inStock) {
       window.alert(
@@ -31,7 +42,7 @@ export class AddToCartButton extends Component {
       if (this.props.amount > 0) {
         this.props.addToCart({
           ...this.props.product,
-          amount: Number.parseInt(this.props.amount),
+          amount: Number.parseInt(this.props.amount)
         });
 
         window.alert('Added to cart!');

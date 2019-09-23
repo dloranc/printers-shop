@@ -1,8 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 import Table from 'react-bootstrap/Table';
 
 export class CartProductList extends Component {
+  static propTypes = {
+    products: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      price: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]).isRequired,
+      amount: PropTypes.number.isRequired
+    })).isRequired
+  }
+
   showProductList = () => {
     return (
       <>
@@ -53,17 +67,21 @@ export class CartProductList extends Component {
   }
 
   showTotalPrice = () => {
-    return this.props.products.reduce((sum, product) => sum + product.amount * product.price, 0);
+    return this.props.products.reduce(
+      (sum, product) => sum + product.amount * product.price,
+      0
+    );
   }
 
   render() {
-    return this.props.products.length > 0 ? this.showProductList() : this.showCartIsEmpty()
+    return this.props.products.length > 0 ?
+      this.showProductList() : this.showCartIsEmpty()
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-      products: state.cart,
+    products: state.cart
   }
 };
 
