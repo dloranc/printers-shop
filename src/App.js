@@ -9,15 +9,15 @@ import NavBarContainer from './components/NavBar/Container/Container';
 import ScreensRoot from './screens/Root/Root';
 
 function App() {
-    return (
-        <Provider store={store}>
-            <Router>
-                <NavBarContainer/>
+  return (
+    <Provider store={store}>
+      <Router>
+        <NavBarContainer/>
 
-                <ScreensRoot/>
-            </Router>
-        </Provider>
-    );
+        <ScreensRoot/>
+      </Router>
+    </Provider>
+  );
 }
 
 export default App;

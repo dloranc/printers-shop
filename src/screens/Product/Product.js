@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -6,6 +7,11 @@ import { Fetcher } from '../../components/Fetcher/Fetcher';
 import ProductView from '../../components/Product/Product/View/View';
 
 class ScreensProduct extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    match: PropTypes.object.isRequired
+  }
+
   render() {
     if (this.props.isAuthenticated) {
       const productId = this.props.match.params.id;
@@ -21,24 +27,24 @@ class ScreensProduct extends Component {
           <Fetcher url={url}>
             {({ data, isLoading, error }) => {
               if (isLoading) {
-                return <p>Loading...</p>
+                return <p>Loading...</p>;
               }
 
               if (error) {
                 if (error.response.status === 404) {
-                  return <Redirect to='/404'/>
+                  return <Redirect to='/404'/>;
                 }
 
-                return <p>{error.message}</p>
+                return <p>{error.message}</p>;
               }
 
               if (!isLoading) {
-                return <ProductView product={data}/>
+                return <ProductView product={data}/>;
               }
             }}
           </Fetcher>
         </>
-      )
+      );
     }
 
     return <Redirect to="/"></Redirect>;
@@ -47,8 +53,8 @@ class ScreensProduct extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      isAuthenticated: state.user.isAuthenticated,
-  }
+    isAuthenticated: state.user.isAuthenticated
+  };
 };
 
 export default connect(mapStateToProps)(ScreensProduct);

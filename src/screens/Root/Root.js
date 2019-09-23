@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter, Switch, Route } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -20,49 +21,53 @@ import Col from 'react-bootstrap/Col';
 import './routeTransition.css';
 
 const routes = [
-    { path: '/', name: 'Home', Component: ScreensHome, exact: true },
-    { path: '/sign-up', name: 'Sign up', Component: ScreensSignUpForm, exact: false },
-    { path: '/sign-in', name: 'Sign in', Component: ScreensSignInForm, exact: false },
-    { path: '/shop', name: 'Shop', Component: ScreensShop, exact: false },
-    { path: '/product/:id', name: 'Product', Component: ScreensProduct, exact: false },
-    { path: '/cart', name: 'Cart', Component: ScreensCart, exact: false },
-    { path: '/orders', name: 'Orders', Component: ScreensOrders, exact: false },
-    { path: '/inventory', name: 'Inventory', Component: ScreensInventory, exact: false },
-    { path: null, name: '404', Component: ScreensNoMatch, exact: false },
-]
+  { path: '/', name: 'Home', Component: ScreensHome, exact: true },
+  { path: '/sign-up', name: 'Sign up', Component: ScreensSignUpForm, exact: false },
+  { path: '/sign-in', name: 'Sign in', Component: ScreensSignInForm, exact: false },
+  { path: '/shop', name: 'Shop', Component: ScreensShop, exact: false },
+  { path: '/product/:id', name: 'Product', Component: ScreensProduct, exact: false },
+  { path: '/cart', name: 'Cart', Component: ScreensCart, exact: false },
+  { path: '/orders', name: 'Orders', Component: ScreensOrders, exact: false },
+  { path: '/inventory', name: 'Inventory', Component: ScreensInventory, exact: false },
+  { path: null, name: '404', Component: ScreensNoMatch, exact: false }
+];
 
 class ScreensRoot extends React.Component {
-    render() {
-        return (
-            <Container>
-                <Row>
-                    <Col>
-                        <TransitionGroup>
-                            <CSSTransition
-                                key={this.props.location.key}
-                                timeout={500}
-                                classNames="page"
-                                mountOnEnter
-                                unmountOnExit
-                            >
-                                <Switch location={this.props.location}>
-                                    {routes.map(({ path, exact, Component }) => (
-                                        <Route key={path} exact={exact} path={path}>
-                                            {({ match }) => (
-                                                <div className="page">
-                                                    <Component match={match} />
-                                                </div>
-                                            )}
-                                        </Route>
-                                    ))}
-                                </Switch>
-                            </CSSTransition>
-                        </TransitionGroup>
-                    </Col>
-                </Row>
-            </Container>
-        )
-    }
+  static propTypes = {
+    location: PropTypes.object.isRequired
+  }
+
+  render() {
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <TransitionGroup>
+              <CSSTransition
+                key={this.props.location.key}
+                timeout={500}
+                classNames="page"
+                mountOnEnter
+                unmountOnExit
+              >
+                <Switch location={this.props.location}>
+                  {routes.map(({ path, exact, Component }) => (
+                    <Route key={path} exact={exact} path={path}>
+                      {({ match }) => (
+                        <div className="page">
+                          <Component match={match} />
+                        </div>
+                      )}
+                    </Route>
+                  ))}
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
 export default withRouter(ScreensRoot);

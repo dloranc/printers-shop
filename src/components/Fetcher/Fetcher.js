@@ -1,14 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 class Fetcher extends React.Component {
+  static propTypes = {
+    url: PropTypes.string.isRequired,
+    children: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       data: null,
       isLoading: true,
-      error: null,
+      error: null
     };
   }
 

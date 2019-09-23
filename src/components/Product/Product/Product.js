@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AddToCartButton from './AddToCartButton/AddToCartButton';
@@ -24,58 +25,74 @@ const ProductRow = styled.div`
 `;
 
 export class Product extends Component {
-    state = {
-        amount: 1,
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    inStock: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  }
+
+  state = {
+    amount: 1
+  }
+
+  handleChange = event => {
+    const value = event.target.value;
+
+    if (value < 0) {
+      this.setState({ amount: 0 });
+    } else {
+      this.setState({ amount: value });
     }
+  }
 
-    handleChange = event => {
-        const value = event.target.value;
+  render() {
+    return (
+      <ProductCard>
+        <ProductTitle>{this.props.type} {this.props.name}</ProductTitle>
 
-        if (value < 0) {
-            this.setState({ amount: 0 });
-        } else {
-            this.setState({ amount: value });
-        }
-    }
+        <ProductRow>
+          <ProductLabel>Price per unit: </ProductLabel>
+          ${this.props.price}
+        </ProductRow>
 
-    render() {
-        return (
-            <ProductCard>
-                <ProductTitle>{this.props.type} {this.props.name}</ProductTitle>
+        <ProductRow>
+          <ProductLabel>In stock: </ProductLabel>
+          {inStock(this.props.inStock)}
+        </ProductRow>
 
-                <ProductRow>
-                    <ProductLabel>Price per unit:</ProductLabel> ${this.props.price}
-                </ProductRow>
+        <ChangeAmount amount={this.state.amount} onChange={this.handleChange}/>
 
-                <ProductRow>
-                    <ProductLabel>In stock: </ProductLabel>
-                    {inStock(this.props.inStock)}
-                </ProductRow>
+        <ProductRow>
+          <ProductLabel>Price: </ProductLabel>
+          ${this.state.amount * this.props.price}
+        </ProductRow>
 
-                <ChangeAmount amount={this.state.amount} onChange={this.handleChange}/>
+        <Link to={'/product/' + this.props.id}>View product</Link>
 
-                <ProductRow>
-                    <ProductLabel>Price:</ProductLabel> ${this.state.amount * this.props.price}
-                </ProductRow>
-
-                <Link to={'/product/' + this.props.id}>View product</Link>
-
-                <AddToCartButton
-                    center
-                    amount={this.state.amount}
-                    product={
-                        {
-                            id: this.props.id,
-                            name: this.props.name,
-                            type: this.props.type,
-                            price: this.props.price,
-                            inStock: this.props.inStock
-                        }
-                    }
-                />
-            </ProductCard>
-        )
-    }
+        <AddToCartButton
+          center
+          amount={this.state.amount}
+          product={
+            {
+              id: this.props.id,
+              name: this.props.name,
+              type: this.props.type,
+              price: this.props.price,
+              inStock: this.props.inStock
+            }
+          }
+        />
+      </ProductCard>
+    );
+  }
 }
 
 export default Product;

@@ -6,20 +6,20 @@ import cart from './cart/reducer';
 
 const rootReducer = combineReducers({
   user,
-  cart,
+  cart
 });
 
 const middleware = process.env.NODE_ENV !== 'production' ?
   [require('redux-immutable-state-invariant').default()] : [];
 
 const store = createStore(
-    rootReducer,
-    composeWithDevTools(
-      applyMiddleware(
-        ...middleware,
-        thunk
-      )
-    ),
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(
+      ...middleware,
+      thunk
+    )
+  ),
 );
 
 export default store;

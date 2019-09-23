@@ -7,8 +7,8 @@ const defaultProps = {
   type: 'Printer',
   price: 400,
   inStock: 10,
-  addToCart: () => {},
-}
+  addToCart: () => {}
+};
 
 // eslint-disable-next-line no-undef
 const setup = buildSetup(Product, defaultProps);
@@ -53,7 +53,7 @@ describe('A product compoment', () => {
   it('increase a price when the amount of items to order increases', () => {
     const { wrapper } = setup();
 
-    wrapper.find(ChangeAmount).simulate('change', { target: { value: 2 } })
+    wrapper.find(ChangeAmount).simulate('change', { target: { value: 2 } });
 
     expect(wrapper.text()).toContain('Price: $800');
   });
