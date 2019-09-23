@@ -1,13 +1,22 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import ProductListContainer from './../../components/Product/List/Container/Container';
 
 class ScreensShop extends React.Component {
     render() {
         if (this.props.isAuthenticated) {
-            return <ProductListContainer></ProductListContainer>;
+            return (
+                <>
+                    <Helmet>
+                        <title>Shop - Printers Shop</title>
+                    </Helmet>
+
+                    <ProductListContainer></ProductListContainer>
+                </>
+            );
         }
 
         return <Redirect to="/"></Redirect>;
