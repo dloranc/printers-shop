@@ -1,223 +1,244 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { authenticate, setRole } from './../../../../store/user/action-creators';
+import {
+  authenticate,
+  setRole
+} from './../../../../store/user/action-creators';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 const schema = yup.object({
-    email: yup.string().email('Email must be a valid email').required('Email is required'),
-    firstName: yup.string().required('First name is a required field'),
-    lastName: yup.string().required('Last name is a required field'),
-    company: yup.string().required('Select a company'),
-    password: yup.string().min(6, 'The password must be at least 6 characters').required('Password is required'),
-    confirmPassword: yup.string().required('You have to confirm password').oneOf(
-        [yup.ref('password')],
-        `Passwords don't match`
-    ),
+  email: yup.string().email('Email must be a valid email')
+    .required('Email is required'),
+  firstName: yup.string().required('First name is a required field'),
+  lastName: yup.string().required('Last name is a required field'),
+  company: yup.string().required('Select a company'),
+  password: yup.string().min(6, 'The password must be at least 6 characters')
+    .required('Password is required'),
+  confirmPassword: yup.string().required('You have to confirm password').oneOf(
+    [yup.ref('password')],
+    'Passwords don\'t match'
+  )
 });
 
 class SignUpForm extends React.Component {
-    // TODO: remove duplicated code (it's almost the same as in the SignIn/Form/Form.js)
-    handleFormSubmit = (values, actions) => {
-        axios.get('http://localhost:4000/users')
-            .then(response => {
-                const users = response.data;
+  static propTypes = {
+    authenticate: PropTypes.func.isRequired,
+    setRole: PropTypes.func.isRequired,
+    companies: PropTypes.array.isRequired,
+    history: PropTypes.object.isRequired
+  }
 
-                const user = users.filter(
-                    user => user.email === values.email && user.password === values.password
-                );
+  // TODO: remove duplicated code
+  // (it's almost the same as in the SignIn/Form/Form.js)
+  handleFormSubmit = (values, actions) => {
+    axios.get('http://localhost:4000/users')
+      .then(response => {
+        const users = response.data;
 
-                if (user.length === 0) {
-                    this.authenticate();
-                } else {
-                    actions.setErrors({
-                        email: 'The user with this email exists in the database.',
-                    });
+        const user = users.filter(
+          user => user.email === values.email &&
+            user.password === values.password
+        );
 
-                    actions.setSubmitting(false);
-                }
-            }).catch(error => {
-                console.error(error)
+        if (user.length === 0) {
+          this.authenticate();
+        } else {
+          actions.setErrors({
+            email: 'The user with this email exists in the database.'
+          });
 
-                actions.setErrors({
-                    email: 'Something went wrong.',
-                });
+          actions.setSubmitting(false);
+        }
+      }).catch(error => {
+        console.error(error);
 
-                actions.setSubmitting(false);
-            });
-    }
+        actions.setErrors({
+          email: 'Something went wrong.'
+        });
 
-    authenticate() {
-        this.props.authenticate();
-        this.props.setRole('user');
+        actions.setSubmitting(false);
+      });
+  }
 
-        window.sessionStorage.setItem('is-authenticated', 'true');
-        window.sessionStorage.setItem('role', 'user');
+  authenticate() {
+    this.props.authenticate();
+    this.props.setRole('user');
 
-        this.props.history.push('/shop');
-    }
+    window.sessionStorage.setItem('is-authenticated', 'true');
+    window.sessionStorage.setItem('role', 'user');
 
-    render() {
-        return (
-            <Formik
-                initialValues={{
-                    email: '',
-                    firstName: '',
-                    lastName: '',
-                    company: '',
-                    password: '',
-                    confirmPassword: '',
-                }}
-                validationSchema={schema}
-                onSubmit={this.handleFormSubmit}
-                render={(
-                    {
-                        handleSubmit,
-                        handleChange,
-                        values,
-                        errors,
-                        isSubmitting,
-                        handleBlur,
-                        isValid,
-                        touched,
-                    }
-                ) => (
-                    <Form noValidate onSubmit={handleSubmit}>
-                        <h2>Sign Up</h2>
+    this.props.history.push('/shop');
+  }
 
-                        <Form.Group controlId="email">
-                            <Form.Label>Email</Form.Label>
+  render() {
+    return (
+      <Formik
+        initialValues={{
+          email: '',
+          firstName: '',
+          lastName: '',
+          company: '',
+          password: '',
+          confirmPassword: ''
+        }}
+        validationSchema={schema}
+        onSubmit={this.handleFormSubmit}
+        render={(
+          {
+            handleSubmit,
+            handleChange,
+            values,
+            errors,
+            isSubmitting,
+            handleBlur,
+            isValid,
+            touched
+          }
+        ) => (
+          <Form noValidate onSubmit={handleSubmit}>
+            <h2>Sign Up</h2>
 
-                            <Form.Control
-                                type="email"
-                                name="email"
-                                value={values.email}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                isInvalid={!!errors.email && touched.email}
-                            />
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
 
-                            <Form.Control.Feedback type="invalid">
-                                {touched.email && errors.email}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+              <Form.Control
+                type="email"
+                name="email"
+                value={values.email}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.email && touched.email}
+              />
 
-                        <Form.Group controlId="firstName">
-                            <Form.Label>First name</Form.Label>
+              <Form.Control.Feedback type="invalid">
+                {touched.email && errors.email}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-                            <Form.Control
-                                type="text"
-                                name="firstName"
-                                value={values.firstName}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                isInvalid={!!errors.firstName && touched.firstName}
-                            />
+            <Form.Group controlId="firstName">
+              <Form.Label>First name</Form.Label>
 
-                            <Form.Control.Feedback type="invalid">
-                                {touched.firstName && errors.firstName}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+              <Form.Control
+                type="text"
+                name="firstName"
+                value={values.firstName}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.firstName && touched.firstName}
+              />
 
-                        <Form.Group controlId="lastName">
-                            <Form.Label>Last name</Form.Label>
+              <Form.Control.Feedback type="invalid">
+                {touched.firstName && errors.firstName}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-                            <Form.Control
-                                type="text"
-                                name="lastName"
-                                value={values.lastName}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                isInvalid={!!errors.lastName && touched.lastName}
-                            />
+            <Form.Group controlId="lastName">
+              <Form.Label>Last name</Form.Label>
 
-                            <Form.Control.Feedback type="invalid">
-                                {touched.lastName && errors.lastName}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+              <Form.Control
+                type="text"
+                name="lastName"
+                value={values.lastName}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.lastName && touched.lastName}
+              />
 
-                        <Form.Group controlId="company">
-                            <Form.Label>Company</Form.Label>
+              <Form.Control.Feedback type="invalid">
+                {touched.lastName && errors.lastName}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-                            <Form.Control
-                                as="select"
-                                name="company"
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                isInvalid={!!errors.company && touched.company}
-                            >
-                                <option value="">Select a company</option>
+            <Form.Group controlId="company">
+              <Form.Label>Company</Form.Label>
 
-                                {
-                                    this.props.companies.map(company => {
-                                        return (
-                                            <option key={company.id} value={company.id}>
-                                                {company.name}
-                                            </option>
-                                        )
-                                    }
-                                )}
-                            </Form.Control>
+              <Form.Control
+                as="select"
+                name="company"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.company && touched.company}
+              >
+                <option value="">Select a company</option>
 
-                            <Form.Control.Feedback type="invalid">
-                                {touched.company && errors.company}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+                {
+                  this.props.companies.map(company => {
+                    return (
+                      <option key={company.id} value={company.id}>
+                        {company.name}
+                      </option>
+                    );
+                  }
+                  )}
+              </Form.Control>
 
-                        <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
+              <Form.Control.Feedback type="invalid">
+                {touched.company && errors.company}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-                            <Form.Control
-                                type="password"
-                                name="password"
-                                value={values.password}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                isInvalid={!!errors.password && touched.password}
-                            />
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
 
-                            <Form.Control.Feedback type="invalid">
-                                {touched.password && errors.password}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+              <Form.Control
+                type="password"
+                name="password"
+                value={values.password}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.password && touched.password}
+              />
 
-                        <Form.Group controlId="confirmPassword">
-                            <Form.Label>Confirm password</Form.Label>
+              <Form.Control.Feedback type="invalid">
+                {touched.password && errors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-                            <Form.Control
-                                type="password"
-                                name="confirmPassword"
-                                value={values.confirmPassword}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                isInvalid={!!errors.confirmPassword && touched.confirmPassword}
-                            />
+            <Form.Group controlId="confirmPassword">
+              <Form.Label>Confirm password</Form.Label>
 
-                            <Form.Control.Feedback type="invalid">
-                                {touched.confirmPassword && errors.confirmPassword}
-                            </Form.Control.Feedback>
-                        </Form.Group>
+              <Form.Control
+                type="password"
+                name="confirmPassword"
+                value={values.confirmPassword}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.confirmPassword && touched.confirmPassword}
+              />
 
-                        <Button variant="primary" type="submit" disabled={!isValid || isSubmitting}>Sign up</Button>
-                    </Form>
-                )}
-            />
-        )
-    }
+              <Form.Control.Feedback type="invalid">
+                {touched.confirmPassword && errors.confirmPassword}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={!isValid || isSubmitting}
+            >
+              Sign up
+            </Button>
+          </Form>
+        )}
+      />
+    );
+  }
 }
 
 const withRedux = connect(
-    null,
-    {
-        authenticate,
-        setRole,
-    },
+  null,
+  {
+    authenticate,
+    setRole
+  },
 )(SignUpForm);
 
 export default withRouter(withRedux);

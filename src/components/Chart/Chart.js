@@ -15,25 +15,25 @@ export class Chart extends Component {
     data: [
       {
         month: 'January',
-        value: 100,
+        value: 100
       },
       {
         month: 'February',
-        value: 200,
+        value: 200
       },
       {
         month: 'March',
-        value: 130,
+        value: 130
       },
       {
         month: 'April',
-        value: 500,
+        value: 500
       },
       {
         month: 'May',
-        value: 50,
-      },
-    ],
+        value: 50
+      }
+    ]
   }
 
   componentDidMount() {
@@ -41,13 +41,13 @@ export class Chart extends Component {
       this.setState({
         data: [...this.state.data, {
           month: 'May',
-          value: Math.floor(Math.random() * 1000),
+          value: Math.floor(Math.random() * 1000)
         }]
       });
     }, 500);
 
     this.setState({
-      intervalId: intervalId,
+      intervalId: intervalId
     });
   }
 
