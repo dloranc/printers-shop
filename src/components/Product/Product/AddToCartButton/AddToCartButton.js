@@ -59,7 +59,7 @@ export class AddToCartButton extends Component {
       >
         Add to cart
       </Button>
-    )
+    );
   }
 }
 

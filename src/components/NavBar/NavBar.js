@@ -46,7 +46,7 @@ class NavBar extends React.Component {
           Sign in
         </Nav.Link>
       </>
-    )
+    );
   }
 
   navigationLinks = () => {
@@ -77,7 +77,7 @@ class NavBar extends React.Component {
           Log out
         </Nav.Link>
       </>
-    )
+    );
   }
 
   adminLinks = () => {
@@ -90,7 +90,7 @@ class NavBar extends React.Component {
         >
           Inventory
         </Nav.Link>
-      )
+      );
     }
 
     return null;
@@ -117,7 +117,7 @@ class NavBar extends React.Component {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    )
+    );
   }
 }
 
