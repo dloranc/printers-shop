@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List component should match snapshot 1`] = `
+<Fragment>
+  <button
+    id="toggle-fruits"
+    onClick={[Function]}
+  >
+    Hide fruits
+  </button>
+  <div
+    className="list"
+  >
+    <div
+      key="apples"
+    >
+      apples
+    </div>
+    <div
+      key="bananas"
+    >
+      bananas
+    </div>
+    <div
+      key="potatoes"
+    >
+      potatoes
+    </div>
+    <div
+      key="strawberries"
+    >
+      strawberries
+    </div>
+  </div>
+</Fragment>
+`;
+
+exports[`List component should match snapshot after click 1`] = `
+<Fragment>
+  <button
+    id="toggle-fruits"
+    onClick={[Function]}
+  >
+    Hide fruits
+  </button>
+  <div
+    className="list"
+  >
+    <div
+      key="potatoes"
+    >
+      potatoes
+    </div>
+  </div>
+</Fragment>
+`;
