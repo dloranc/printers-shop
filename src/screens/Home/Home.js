@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import  { Helmet } from 'react-helmet';
+import LoadingTest from '../../components/LoadingTest/LoadingTest';
 
 class ScreensHome extends Component {
   static propTypes = {
@@ -22,6 +23,8 @@ class ScreensHome extends Component {
 
             <p>Please, sign up or log in to see our products.</p>
           </div>
+
+          <LoadingTest/>
         </>
       );
     }
