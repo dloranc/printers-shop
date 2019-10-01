@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Fetcher } from '../../components/Fetcher/Fetcher';
@@ -57,4 +58,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ScreensProduct);
+export default compose(
+  withRouter,
+  connect(mapStateToProps)
+)(ScreensProduct);
