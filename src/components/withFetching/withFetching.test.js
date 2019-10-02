@@ -40,8 +40,6 @@ describe('withFetching HOC', () => {
   });
 
   it('calls to API once', async () => {
-    const getSpy = jest.spyOn(axios, 'get');
-
     setup();
 
     expect(getSpy).toBeCalled();
