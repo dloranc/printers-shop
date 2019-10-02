@@ -1,3 +1,5 @@
 export default {
-  get: jest.fn().mockResolvedValue({ test: 'hello' })
+  get: () => {
+    return Promise.resolve({ test: 'hello' });
+  }
 };

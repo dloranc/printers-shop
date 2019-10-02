@@ -1,6 +1,9 @@
 import withFetching from './withFetching';
 import LoadingTest from '../LoadingTest/LoadingTest';
-import axiosMock from 'axios';
+import axios from 'axios';
+jest.mock('axios');
+
+let getSpy;
 
 const WrappedComponent = withFetching(
   'https://jsonplaceholder.typicode.com/posts/1'
@@ -16,6 +19,14 @@ const setup = buildSetup(WrappedComponent, defaultProps);
 const setupBrokenComponent = buildSetup(ComponentWithoutUrl, defaultProps);
 
 describe('withFetching HOC', () => {
+  beforeEach(() => {
+    getSpy = jest.spyOn(axios, 'get');
+  });
+
+  afterEach(() => {
+    getSpy.mockRestore();
+  });
+
   it('should throw because no url has been provided', () => {
     expect(() => {
       setupBrokenComponent();
@@ -29,40 +40,46 @@ describe('withFetching HOC', () => {
   });
 
   it('calls to API once', async () => {
-    const { wrapper } = setup();
+    const getSpy = jest.spyOn(axios, 'get');
 
-    axiosMock.get.mockClear();
-    await axiosMock.get();
+    setup();
 
-    expect(axiosMock.get).toHaveBeenCalledTimes(1);
+    expect(getSpy).toBeCalled();
   });
 
   it('passes response property to the component that is wrapped', async () => {
     const { wrapper } = setup();
 
-    axiosMock.get.mockClear();
-    await axiosMock.get();
+    const getPromise = getSpy.mock.results.pop().value;
 
-    expect(wrapper.state().response).toMatchObject({
-      test: 'hello'
+    getPromise.then(() => {
+      expect(wrapper.state().response).toMatchObject({
+        test: 'hello'
+      });
+
+      expect(getSpy).toHaveBeenCalledTimes(1);
     });
   });
 
   it('has null error property after successful API call', async () => {
     const { wrapper } = setup();
 
-    axiosMock.get.mockClear();
-    await axiosMock.get();
+    const getPromise = getSpy.mock.results.pop().value;
 
-    expect(wrapper.state().error).toEqual(null);
+    getPromise.then(() => {
+      expect(wrapper.state().error).toEqual(null);
+      expect(getSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('sets isLoading to false when API call has finished', async () => {
     const { wrapper } = setup();
 
-    axiosMock.get.mockClear();
-    await axiosMock.get();
+    const getPromise = getSpy.mock.results.pop().value;
 
-    expect(wrapper.state().isLoading).toEqual(false);
+    getPromise.then(() => {
+      expect(wrapper.state().isLoading).toEqual(false);
+      expect(getSpy).toHaveBeenCalledTimes(1);
+    });
   });
 });
