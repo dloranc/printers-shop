@@ -46,7 +46,7 @@ class NavBar extends React.Component {
           Sign in
         </Nav.Link>
       </>
-    )
+    );
   }
 
   navigationLinks = () => {
@@ -77,7 +77,7 @@ class NavBar extends React.Component {
           Log out
         </Nav.Link>
       </>
-    )
+    );
   }
 
   adminLinks = () => {
@@ -90,7 +90,7 @@ class NavBar extends React.Component {
         >
           Inventory
         </Nav.Link>
-      )
+      );
     }
 
     return null;
@@ -112,12 +112,16 @@ class NavBar extends React.Component {
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto" role="navigation">
-              {this.isAuthenticated() ? this.navigationLinks() : this.authLinks()}
+              {
+                this.isAuthenticated()
+                  ? this.navigationLinks()
+                  : this.authLinks()
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    )
+    );
   }
 }
 
