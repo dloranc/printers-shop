@@ -11,7 +11,7 @@ class NavBar extends React.Component {
     logout: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    role: PropTypes.string.isRequired,
+    isAdmin: PropTypes.bool.isRequired,
     onLogout: PropTypes.func.isRequired
   }
 
@@ -21,10 +21,6 @@ class NavBar extends React.Component {
 
   isAuthenticated = () => {
     return this.props.isAuthenticated;
-  }
-
-  isAdmin = () => {
-    return this.props.role === 'admin';
   }
 
   authLinks = () => {
@@ -81,7 +77,7 @@ class NavBar extends React.Component {
   }
 
   adminLinks = () => {
-    if (this.isAdmin()) {
+    if (this.props.isAdmin) {
       return (
         <Nav.Link as={Link}
           to="/inventory"

@@ -1,1 +1,3 @@
-export const getProductsFromCart = state => state.cart;
+export const getProductsFromCart = state => {
+  return state.cart;
+};

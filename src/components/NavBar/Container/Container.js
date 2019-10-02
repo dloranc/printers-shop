@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from './../../../store/user/action-creators';
+import { isAdmin } from '../../../store/user/selectors';
 
 import Navbar from './../NavBar';
 
@@ -11,7 +12,7 @@ class NavBarContainer extends React.Component {
     logout: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
-    role: PropTypes.string.isRequired
+    isAdmin: PropTypes.bool.isRequired
   }
 
   handleLogout = () => {
@@ -24,20 +25,20 @@ class NavBarContainer extends React.Component {
     return (
       <Navbar
         isAuthenticated={this.props.isAuthenticated}
-        role={this.props.role}
+        isAdmin={this.props.isAdmin}
         logout={this.props.logout}
         onLogout={this.handleLogout}
         {...this.props}
       />
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.isAuthenticated,
-    role: state.user.role
-  }
+    isAdmin: isAdmin(state)
+  };
 };
 
 const withRedux = connect(

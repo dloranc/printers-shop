@@ -4,15 +4,16 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Chart from './../../components/Chart/Chart';
+import { isAdmin } from '../../store/user/selectors';
 
 export class ScreensInventory extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    role: PropTypes.string.isRequired
+    isAdmin: PropTypes.bool.isRequired
   }
 
   isAuthenticatedAndHasAdminRole = () => {
-    return this.props.isAuthenticated && this.props.role === 'admin';
+    return this.props.isAuthenticated && this.props.isAdmin;
   }
 
   render() {
@@ -35,7 +36,7 @@ export class ScreensInventory extends Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.user.isAuthenticated,
-    role: state.user.role
+    isAdmin: isAdmin(state)
   };
 };
 
