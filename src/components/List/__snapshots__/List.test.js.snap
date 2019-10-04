@@ -2,6 +2,7 @@
 
 exports[`List component should match snapshot 1`] = `
 <Fragment>
+  Click on plant you like.
   <button
     id="toggle-fruits"
     onClick={[Function]}
@@ -11,32 +12,33 @@ exports[`List component should match snapshot 1`] = `
   <div
     className="list"
   >
-    <div
+    <Plant
       key="apples"
-    >
-      apples
-    </div>
-    <div
+      name="apples"
+      onClick={[Function]}
+    />
+    <Plant
       key="bananas"
-    >
-      bananas
-    </div>
-    <div
+      name="bananas"
+      onClick={[Function]}
+    />
+    <Plant
       key="potatoes"
-    >
-      potatoes
-    </div>
-    <div
+      name="potatoes"
+      onClick={[Function]}
+    />
+    <Plant
       key="strawberries"
-    >
-      strawberries
-    </div>
+      name="strawberries"
+      onClick={[Function]}
+    />
   </div>
 </Fragment>
 `;
 
 exports[`List component should match snapshot after click 1`] = `
 <Fragment>
+  Click on plant you like.
   <button
     id="toggle-fruits"
     onClick={[Function]}
@@ -46,11 +48,11 @@ exports[`List component should match snapshot after click 1`] = `
   <div
     className="list"
   >
-    <div
+    <Plant
       key="potatoes"
-    >
-      potatoes
-    </div>
+      name="potatoes"
+      onClick={[Function]}
+    />
   </div>
 </Fragment>
 `;
