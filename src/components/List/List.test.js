@@ -21,21 +21,22 @@ describe('List component', () => {
     expect(toJson(wrapper)).toMatchSnapshot();
   });
 
-  it('should render all types of plants', () => {
-    expect(wrapper.text()).toContain('apples');
-    expect(wrapper.text()).toContain('potatoes');
+  it('should render plants', () => {
+    expect(wrapper.text()).toContain('Plant');
   });
 
   it('should have first element to be "apples"', () => {
-    expect(wrapper.find('.list div:first-child').text()).toEqual('apples');
+    expect(
+      wrapper.find('.list Plant:first-child').dive().text()
+    ).toEqual('apples');
   });
 
   it('should render only vegetables when toggle button has been clicked',
     () => {
       wrapper.find('#toggle-fruits').simulate('click');
 
-      expect(wrapper.text()).not.toContain('apples');
-      expect(wrapper.text()).toContain('potatoes');
+      expect(wrapper.find('.list Plant').dive().text()).not.toContain('apples');
+      expect(wrapper.find('.list Plant').dive().text()).toContain('potatoes');
     }
   );
 });

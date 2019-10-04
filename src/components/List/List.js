@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import Plant from './Plant/Plant';
 
-export class List extends Component {
+export class List extends PureComponent {
   state = {
     showFruits: true,
+    name: '',
     list: [
       { name: 'apples', type: 'fruit'},
       { name: 'bananas', type: 'fruit'},
@@ -17,9 +19,21 @@ export class List extends Component {
     });
   }
 
+  handleClick = name => {
+    this.setState({
+      item: name
+    });
+  }
+
   render() {
     return (
       <>
+        {
+          this.state.item
+            ? `You like ${this.state.item}!`
+            : 'Click on plant you like.'
+        }
+
         <button
           id="toggle-fruits"
           onClick={this.toggleFruits}
@@ -31,11 +45,19 @@ export class List extends Component {
           {this.state.list.map(
             item => {
               if (this.state.showFruits) {
-                return <div key={item.name}>{item.name}</div>;
+                return <Plant
+                  name={item.name}
+                  onClick={this.handleClick}
+                  key={item.name}
+                />;
               }
 
               return item.type !== 'fruit'
-                ? <div key={item.name}>{item.name}</div>
+                ? <Plant
+                  name={item.name}
+                  onClick={this.handleClick}
+                  key={item.name}
+                />
                 : null;
             }
           )}
