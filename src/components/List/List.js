@@ -25,6 +25,12 @@ export class List extends PureComponent {
     });
   }
 
+  handleRemove = name => {
+    this.setState({
+      list: [...this.state.list.filter(item => name !== item.name)]
+    });
+  }
+
   render() {
     return (
       <>
@@ -42,27 +48,32 @@ export class List extends PureComponent {
         </button>
 
         <div className="list">
-          {this.state.list.map(
+          {this.state.list.length > 0 && this.state.list.map(
             item => {
               if (this.state.showFruits) {
-                return <Plant
-                  name={item.name}
-                  onClick={this.handleClick}
-                  key={item.name}
-                />;
+                return this._renderPlant(item);
               }
 
               return item.type !== 'fruit'
-                ? <Plant
-                  name={item.name}
-                  onClick={this.handleClick}
-                  key={item.name}
-                />
+                ? this._renderPlant(item)
                 : null;
             }
           )}
+
+          {this.state.list.length === 0 && <p>The list is empty.</p>}
         </div>
       </>
+    );
+  }
+
+  _renderPlant = item => {
+    return (
+      <Plant
+        name={item.name}
+        onClick={this.handleClick}
+        onRemove={this.handleRemove}
+        key={item.name}
+      />
     );
   }
 }

@@ -28,7 +28,7 @@ describe('List component', () => {
   it('should have first element to be "apples"', () => {
     expect(
       wrapper.find('.list Plant:first-child').dive().text()
-    ).toEqual('apples');
+    ).toContain('apples');
   });
 
   it('should render only vegetables when toggle button has been clicked',
@@ -37,6 +37,47 @@ describe('List component', () => {
 
       expect(wrapper.find('.list Plant').dive().text()).not.toContain('apples');
       expect(wrapper.find('.list Plant').dive().text()).toContain('potatoes');
+    }
+  );
+
+  it('should change text after click on name of the element', () => {
+    wrapper
+      .find('.list Plant:first-child')
+      .dive()
+      .find('.plant__name')
+      .simulate('click');
+
+    expect(wrapper.text()).toContain('You like apples!');
+  });
+
+  it('should remove element from list after click on the "Remove" button',
+    () => {
+      wrapper
+        .find('.list Plant:first-child')
+        .dive()
+        .find('.plant__remove')
+        .simulate('click');
+
+      expect(wrapper.find('.list Plant')).toHaveLength(3);
+    }
+  );
+
+  it('should contain an message when list is empty after all items removal',
+    () => {
+      const clickRemove = () => {
+        wrapper
+          .find('.list Plant:first-child')
+          .dive()
+          .find('.plant__remove')
+          .simulate('click');
+      };
+
+      clickRemove();
+      clickRemove();
+      clickRemove();
+      clickRemove();
+
+      expect(wrapper.text()).toContain('The list is empty.');
     }
   );
 });

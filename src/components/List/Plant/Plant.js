@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 export class Plant extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired
   }
 
   handleClick = () => {
@@ -13,16 +14,29 @@ export class Plant extends Component {
     onClick(name);
   }
 
+  handleRemove = () => {
+    const { name, onRemove } = this.props;
+
+    onRemove(name);
+  }
+
   render() {
     const { name } = this.props;
 
     return (
-      <div
-        className="plant"
-        key={name}
-        onClick={this.handleClick}
-      >
-        {name}
+      <div className="plant">
+        <div
+          className="plant__name"
+          key={name}
+          onClick={this.handleClick}
+          style={{ display: 'inline-block' }}
+        >
+          {name}
+        </div>
+
+        <button className="plant__remove" onClick={this.handleRemove}>
+          Remove
+        </button>
       </div>
     );
   }
