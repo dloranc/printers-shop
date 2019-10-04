@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const withFetch = url => WrappedComponent => {
+const withFetching = url => WrappedComponent => {
   const name = WrappedComponent.displayName || WrappedComponent.name ;
 
-  class withFetch extends Component {
-    static displayName = `withFetch(${name})`;
+  class withFetching extends Component {
+    static displayName = `withFetching(${name})`;
 
     state = {
       response: null,
@@ -43,7 +43,7 @@ const withFetch = url => WrappedComponent => {
     }
   }
 
-  return withFetch;
+  return withFetching;
 };
 
-export default withFetch;
+export default withFetching;
