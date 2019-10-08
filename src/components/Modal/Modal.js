@@ -1,41 +1,41 @@
-import { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import ModalPortal from './Portal/Portal';
 import PropTypes from 'prop-types';
 import './Modal.sass';
 
-const modalRoot = document.getElementById('modal-root');
-
-class Modal extends Component {
+export class Modal extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired
+    header: PropTypes.node.isRequired,
+    body: PropTypes.node.isRequired,
+    footer: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props);
-    // Create a div that we'll render the modal into. Because each
-    // Modal component has its own element, we can render multiple
-    // modal components into the modal container.
-    this.el = document.createElement('div');
-  }
+  close = event => {
+    event.stopPropagation();
 
-  componentDidMount() {
-    // Append the element into the DOM on mount. We'll render
-    // into the modal container element (see the HTML tab).
-    modalRoot.appendChild(this.el);
-  }
-
-  componentWillUnmount() {
-    // Remove the element from the DOM when we unmount
-    modalRoot.removeChild(this.el);
+    this.props.onClose(event);
   }
 
   render() {
-    // Use a portal to render the children into the element
-    return ReactDOM.createPortal(
-      // Any valid React child: JSX, strings, arrays, etc.
-      this.props.children,
-      // A DOM element
-      this.el,
+    return (
+      <ModalPortal>
+        <div className="modal" onClick={this.close}>
+          <div className="modal__container">
+            <div className="modal__header">
+              {this.props.header}
+            </div>
+
+            <div className="modal__body">
+              {this.props.body}
+            </div>
+
+            <div className="modal__footer">
+              {this.props.footer}
+            </div>
+          </div>
+        </div>
+      </ModalPortal>
     );
   }
 }

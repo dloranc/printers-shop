@@ -37,21 +37,16 @@ class ScreensHome extends Component {
           </button>
 
           {this.state.show &&
-            <Modal>
-              <div className="modal">
-                <div className="modal__container">
-                  <div className="modal__header">Header</div>
-                  <div className="modal__body">Body</div>
-                  <div className="modal__footer">
-                    <button
-                      className="modal__button -close"
-                      onClick={this.toggleModal}
-                    >
-                    OK
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <Modal
+              header={'Header'}
+              body={'Body'}
+              footer={
+                <button onClick={this.toggleModal}>
+                  OK
+                </button>
+              }
+              onClose={this.toggleModal}
+            >
             </Modal>
           }
         </>
