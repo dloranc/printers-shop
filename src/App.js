@@ -16,15 +16,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <Provider store={store}>
-        <Router>
-          <NavBarContainer/>
+    <Provider store={store}>
+      <Router>
+        <NavBarContainer/>
 
+        <ErrorBoundary>
           <ScreensRoot/>
-        </Router>
-      </Provider>
-    </ErrorBoundary>
+        </ErrorBoundary>
+      </Router>
+    </Provider>
   );
 }
 
