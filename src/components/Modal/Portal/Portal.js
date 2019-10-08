@@ -2,7 +2,7 @@ import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-const modalRoot = document.getElementById('modal-root');
+let modalRoot = null;
 
 class ModalPortal extends Component {
   static propTypes = {
@@ -16,6 +16,14 @@ class ModalPortal extends Component {
   }
 
   componentDidMount() {
+    if (modalRoot === null) {
+      const root = document.createElement('div');
+      root.id = 'modal-root';
+
+      document.getElementsByTagName('body')[0].appendChild(root);
+      modalRoot = root;
+    }
+
     modalRoot.appendChild(this.el);
   }
 
