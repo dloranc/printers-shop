@@ -21,15 +21,60 @@ import Col from 'react-bootstrap/Col';
 import './routeTransition.css';
 
 const routes = [
-  { path: '/', name: 'Home', Component: ScreensHome, exact: true },
-  { path: '/sign-up', name: 'Sign up', Component: ScreensSignUpForm, exact: false },
-  { path: '/sign-in', name: 'Sign in', Component: ScreensSignInForm, exact: false },
-  { path: '/shop', name: 'Shop', Component: ScreensShop, exact: false },
-  { path: '/product/:id', name: 'Product', Component: ScreensProduct, exact: false },
-  { path: '/cart', name: 'Cart', Component: ScreensCart, exact: false },
-  { path: '/orders', name: 'Orders', Component: ScreensOrders, exact: false },
-  { path: '/inventory', name: 'Inventory', Component: ScreensInventory, exact: false },
-  { path: null, name: '404', Component: ScreensNoMatch, exact: false }
+  {
+    path: '/',
+    name: 'Home',
+    Component: ScreensHome,
+    exact: true
+  },
+  {
+    path: '/sign-up',
+    name: 'Sign up',
+    Component: ScreensSignUpForm,
+    exact: false
+  },
+  {
+    path: '/sign-in',
+    name: 'Sign in',
+    Component: ScreensSignInForm,
+    exact: false
+  },
+  {
+    path: '/shop',
+    name: 'Shop',
+    Component: ScreensShop,
+    exact: false
+  },
+  {
+    path: '/product/:id',
+    name: 'Product',
+    Component: ScreensProduct,
+    exact: false
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    Component: ScreensCart,
+    exact: false
+  },
+  {
+    path: '/orders',
+    name: 'Orders',
+    Component: ScreensOrders,
+    exact: false
+  },
+  {
+    path: '/inventory',
+    name: 'Inventory',
+    Component: ScreensInventory,
+    exact: false
+  },
+  {
+    path: null,
+    name: '404',
+    Component: ScreensNoMatch,
+    exact: false
+  }
 ];
 
 class ScreensRoot extends React.Component {
