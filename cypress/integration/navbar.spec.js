@@ -3,18 +3,20 @@ describe('navbar', () => {
     cy.logout();
   });
 
-  it('has brand link to the /shop when the user is signed in and to / when not', () => {
-    cy.get('[data-cy=brand]')
-      .should('have.attr', 'href')
-      .and('include', '/');
+  it('has brand link to the /shop when the user is signed in and to / when not',
+    () => {
+      cy.get('[data-cy=brand]')
+        .should('have.attr', 'href')
+        .and('include', '/');
 
-    cy.login();
-    cy.visit('/');
+      cy.login();
+      cy.visit('/');
 
-    cy.get('[data-cy=brand]')
-      .should('have.attr', 'href')
-      .and('include', '/shop');
-  });
+      cy.get('[data-cy=brand]')
+        .should('have.attr', 'href')
+        .and('include', '/shop');
+    }
+  );
 
   it('has "Sign up" and "Sign in" links', () => {
     cy.get('[data-cy=sign-up]')
