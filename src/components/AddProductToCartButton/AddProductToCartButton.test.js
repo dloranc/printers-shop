@@ -1,4 +1,4 @@
-import { CartAddProductButton } from './AddProductButton';
+import { AddProductToCartButton } from './AddProductToCartButton';
 
 const defaultProps = {
   product: {
@@ -13,10 +13,10 @@ const defaultProps = {
 };
 
 // eslint-disable-next-line no-undef
-const setup = buildSetup(CartAddProductButton, defaultProps);
+const setup = buildSetup(AddProductToCartButton, defaultProps);
 let alert = null;
 
-describe('An CartAddProductButton compoment', () => {
+describe('An AddProductToCartButton compoment', () => {
   beforeEach(() => {
     alert = jest.spyOn(window, 'alert').mockImplementation();
   });

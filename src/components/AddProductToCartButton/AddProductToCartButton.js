@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { addToCart } from './../../../store/cart/action-creators';
+import { addToCart } from '../../store/cart/action-creators';
 
 export const Button = styled.button`
   display: block;
@@ -22,7 +22,7 @@ export const Button = styled.button`
   }
 `;
 
-export class CartAddProductButton extends Component {
+export class AddProductToCartButton extends Component {
   static propTypes = {
     amount: PropTypes.oneOfType([
       PropTypes.string,
@@ -68,4 +68,4 @@ export default connect(
   {
     addToCart
   }
-)(CartAddProductButton);
+)(AddProductToCartButton);
