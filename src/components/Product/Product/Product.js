@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import AddToCartButton from './AddToCartButton/AddToCartButton';
+import CartAddProductButton from '../../Cart/AddProductButton/AddProductButton';
 import { inStock } from './utils';
 import { ProductLabel } from './ProductLabel/ProductLabel';
 import { ChangeAmount } from './ChangeAmount/ChangeAmount';
@@ -77,7 +77,7 @@ export class Product extends Component {
 
         <Link to={'/product/' + this.props.id}>View product</Link>
 
-        <AddToCartButton
+        <CartAddProductButton
           center
           amount={this.state.amount}
           product={
