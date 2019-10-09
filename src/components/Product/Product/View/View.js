@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { inStock } from '../utils';
 import ChangeAmount from './../ChangeAmount/ChangeAmount';
-import AddToCartButton from '../AddToCartButton/AddToCartButton';
+import AddProductToCartButton from
+  '../../../AddProductToCartButton/AddProductToCartButton';
 
 export class ProductView extends Component {
   static propTypes = {
@@ -55,7 +56,7 @@ export class ProductView extends Component {
 
         <div>Price: ${this.state.amount * product.price}</div>
 
-        <AddToCartButton amount={this.state.amount} product={product}/>
+        <AddProductToCartButton amount={this.state.amount} product={product}/>
       </>
     );
   }
