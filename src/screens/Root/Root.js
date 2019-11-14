@@ -98,11 +98,9 @@ class ScreensRoot extends React.Component {
                 <Switch location={this.props.location}>
                   {routes.map(({ path, exact, Component }) => (
                     <Route key={path} exact={exact} path={path}>
-                      {({ match }) => (
-                        <div className="page">
-                          <Component match={match} />
-                        </div>
-                      )}
+                      <div className="page">
+                        <Component />
+                      </div>
                     </Route>
                   ))}
                 </Switch>
