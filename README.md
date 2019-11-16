@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dloranc/printers-shop.svg?token=45edb8a193c5082338f6123853be0cc8ecb953505cf0d4e64e9aad177ded2877&ts=1573918646329)](https://greenkeeper.io/)
+
 In the project directory, you can run:
 
 ### `npm start`
