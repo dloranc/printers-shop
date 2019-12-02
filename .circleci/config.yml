@@ -33,6 +33,12 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - repo
+
+
       # run tests!
       - run: yarn test
 
@@ -40,9 +46,13 @@ jobs:
     docker:
       - image: circleci/node:12.9.1
 
-    working_directory: /build
+    working_directory: ~/repo
 
     steps:
+      - attach_workspace:
+          at: ~/
+
+
       - run: yarn build
 
       - run:
