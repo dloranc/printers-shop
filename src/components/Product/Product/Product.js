@@ -1,7 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { addToCart } from './../../../store/cart/action-creators';
+import AddProductToCartButton
+  from '../../AddProductToCartButton/AddProductToCartButton';
+import { inStock } from './utils';
+import { ProductLabel } from './ProductLabel/ProductLabel';
+import { ChangeAmount } from './ChangeAmount/ChangeAmount';
 
 const ProductCard = styled.div`
     width: 100%;
@@ -11,7 +16,7 @@ const ProductCard = styled.div`
     box-shadow: 0 0 0.4em #ccc;
 `;
 
-const Title = styled.h2`
+const ProductTitle = styled.h2`
     font-weight: lighter;
     margin-bottom: 0.5em;
 `;
@@ -20,131 +25,75 @@ const ProductRow = styled.div`
     color: #666;
 `;
 
-const ProductLabel = styled.span`
-    color: black;
-    font-weight: bold;
-`;
-
-const AmountLabel = styled(ProductLabel)`
-    margin-top: 2em;
-`;
-
-export const AmountInput = styled.input`
-    margin: 0.3em 0;
-    padding: 0.3em 0.5em;
-    width: 100%;
-`;
-
-export const AddToCartButton = styled.button`
-    display: block;
-    margin: 0 auto;
-    margin-top: 1em;
-    padding: 0.6em 1em;
-    color: white;
-    background: #007bff;
-    border: 0;
-
-    &[disabled] {
-        background: #eee;
-    }
-
-    :hover {
-        background: #118cff;
-    }
-`;
-
 export class Product extends Component {
-    state = {
-        amount: 1,
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired,
+    inStock: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+    ]).isRequired
+  }
+
+  state = {
+    amount: 1
+  }
+
+  handleChange = event => {
+    const value = event.target.value;
+
+    if (value < 0) {
+      this.setState({ amount: 0 });
+    } else {
+      this.setState({ amount: value });
     }
+  }
 
-    inStock = () => {
-        const inStock = this.props.inStock;
+  render() {
+    return (
+      <ProductCard>
+        <ProductTitle>{this.props.type} {this.props.name}</ProductTitle>
 
-        if (inStock > 100) {
-            return 'full supply';
-        }
+        <ProductRow>
+          <ProductLabel>Price per unit: </ProductLabel>
+          ${this.props.price}
+        </ProductRow>
 
-        if (inStock > 10) {
-            return 'medium supply';
-        }
+        <ProductRow>
+          <ProductLabel>In stock: </ProductLabel>
+          {inStock(this.props.inStock)}
+        </ProductRow>
 
-        if (inStock > 0) {
-            return 'last pieces';
-        }
+        <ChangeAmount amount={this.state.amount} onChange={this.handleChange}/>
 
-        return 'not available';
-    }
+        <ProductRow>
+          <ProductLabel>Price: </ProductLabel>
+          ${this.state.amount * this.props.price}
+        </ProductRow>
 
-    addToCart = () => {
-        if (this.state.amount > this.props.inStock) {
-            window.alert('Sorry, but your requested amount of this product exceeds our supply!');
-        } else {
-            if (this.state.amount > 0) {
-                this.props.addToCart({
-                    id: this.props.id,
-                    name: this.props.name,
-                    type: this.props.type,
-                    price: this.props.price,
-                    amount: this.state.amount,
-                });
+        <Link to={'/product/' + this.props.id}>View product</Link>
 
-                window.alert('Added to cart!');
+        <AddProductToCartButton
+          center
+          amount={this.state.amount}
+          product={
+            {
+              id: this.props.id,
+              name: this.props.name,
+              type: this.props.type,
+              price: this.props.price,
+              inStock: this.props.inStock
             }
-        }
-    }
-
-    handleChange = event => {
-        const value = event.target.value;
-
-        if (value < 0) {
-            this.setState({ amount: 0 });
-        } else {
-            this.setState({ amount: value });
-        }
-    }
-
-    render() {
-        return (
-            <ProductCard>
-                <Title>{this.props.type} {this.props.name}</Title>
-
-                <ProductRow>
-                    <ProductLabel>Price per unit:</ProductLabel> ${this.props.price}
-                </ProductRow>
-
-                <ProductRow>
-                    <ProductLabel>In stock:</ProductLabel> {this.inStock()}
-                </ProductRow>
-
-                <AmountLabel
-                    as="label"
-                    htmlFor={'amount-' + this.props.id}
-                >
-                    Amount of items to order:
-                </AmountLabel>
-
-                <AmountInput
-                    type="number"
-                    name="amount"
-                    id={'amount-' + this.props.id}
-                    value={this.state.amount}
-                    onChange={this.handleChange}
-                />
-
-                <ProductRow>
-                    <ProductLabel>Price:</ProductLabel> ${this.state.amount * this.props.price}
-                </ProductRow>
-
-                <AddToCartButton disabled={this.state.amount === 0} onClick={this.addToCart}>Add to cart</AddToCartButton>
-            </ProductCard>
-        )
-    }
+          }
+        />
+      </ProductCard>
+    );
+  }
 }
 
-export default connect(
-    null,
-    {
-        addToCart,
-    }
-)(Product);
+export default Product;

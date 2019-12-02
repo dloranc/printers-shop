@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import  { Helmet } from 'react-helmet';
 
 class ScreensHome extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
+  }
+
   render() {
     if (!this.props.isAuthenticated) {
       return (
-        <div className="home">
-          <h1>Home</h1>
+        <>
+          <Helmet>
+            <title>Home - Printers Shop</title>
+          </Helmet>
 
-          <p>Please, sign up or log in to see our products.</p>
-        </div>
+          <div className="home">
+            <h1>Home</h1>
+
+            <p>Please, sign up or log in to see our products.</p>
+          </div>
+        </>
       );
     }
 
@@ -20,8 +32,8 @@ class ScreensHome extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      isAuthenticated: state.user.isAuthenticated,
-  }
+    isAuthenticated: state.user.isAuthenticated
+  };
 };
 
 export default connect(mapStateToProps)(ScreensHome);
