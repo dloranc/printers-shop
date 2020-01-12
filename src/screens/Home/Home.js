@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import  { Helmet } from 'react-helmet';
+import { observable, action } from 'mobx';
+import { observer } from 'mobx-react';
 
 class ScreensHome extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired
   }
+
+  @observable timer = 0;
 
   render() {
     if (!this.props.isAuthenticated) {
@@ -21,6 +25,8 @@ class ScreensHome extends Component {
             <h1>Home</h1>
 
             <p>Please, sign up or log in to see our products.</p>
+
+            {this.timer}
           </div>
         </>
       );
