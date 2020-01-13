@@ -2,18 +2,54 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Fetcher } from '../../components/Fetcher/Fetcher';
+import { gql } from 'apollo-boost';
 import ProductView from '../../components/Product/Product/View/View';
+import { client } from '../../utils/client';
+
 
 class ScreensProduct extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired
   }
 
-  render() {
+  state = {
+    isLoading: true,
+    product: null,
+  }
+
+  async componentDidMount() {
     const productId = this.props.match.params.id;
 
-    const url = `http://localhost:4000/products/${productId}`;
+    const query = {
+      query: gql`
+        {
+          productById(id: "${productId}") {
+            id,
+            type,
+            name,
+            price,
+            inStock
+          }
+        }
+      `
+    }
+
+    try {
+      const response = await client.query(query);
+      const product = response.data.productById;
+
+      if (product) {
+        this.setState({ product: response.data.productById, isLoading: false });
+      } else {
+        this.setState({ isLoading: false });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  render() {
+    const { isLoading, product } = this.state
 
     return (
       <>
@@ -21,25 +57,8 @@ class ScreensProduct extends Component {
           <title>Product - Printers Shop</title>
         </Helmet>
 
-        <Fetcher url={url}>
-          {({ data, isLoading, error }) => {
-            if (isLoading) {
-              return <p>Loading...</p>;
-            }
-
-            if (error) {
-              if (error.response.status === 404) {
-                return <Redirect to='/404'/>;
-              }
-
-              return <p>{error.message}</p>;
-            }
-
-            if (!isLoading) {
-              return <ProductView product={data}/>;
-            }
-          }}
-        </Fetcher>
+      {!isLoading && product && <ProductView product={product}/>}
+      {!isLoading && !product && <Redirect to='/404'/>}
       </>
     );
   }
