@@ -1,6 +1,11 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "plugin:cypress/recommended"
+    "eslint:recommended",
+    "plugin:cypress/recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react"
   ]
 }

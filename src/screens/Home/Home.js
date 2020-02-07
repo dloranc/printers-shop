@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 class ScreensHome extends Component {
   render() {
-    if (!this.props.isAuthenticated) {
       return (
         <div className="home">
           <h1>Home</h1>
@@ -13,15 +10,6 @@ class ScreensHome extends Component {
         </div>
       );
     }
-
-    return <Redirect to="/shop"></Redirect>;
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-      isAuthenticated: state.user.isAuthenticated,
-  }
-};
-
-export default connect(mapStateToProps)(ScreensHome);
+export default ScreensHome;

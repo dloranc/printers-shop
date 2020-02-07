@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-
 import { ResponsiveContainer, LineChart, Line, Tooltip, CartesianGrid, YAxis, XAxis } from 'recharts';
 
 export class ScreensInventory extends Component {
@@ -32,10 +29,6 @@ export class ScreensInventory extends Component {
     }
 
     componentDidMount() {
-        if (!this.isAuthenticatedAndHasAdminRole()) {
-            return;
-        }
-
         const intervalId = setInterval(() => {
             this.setState({
                 data: [...this.state.data, {
@@ -51,44 +44,25 @@ export class ScreensInventory extends Component {
     }
 
     componentWillUnmount() {
-        if (!this.isAuthenticatedAndHasAdminRole()) {
-            return;
-        }
-
         clearInterval(this.state.intervalId);
     }
 
-    isAuthenticatedAndHasAdminRole = () => {
-        return this.props.isAuthenticated && this.props.role === 'admin';
-    }
-
     render() {
-        if (this.isAuthenticatedAndHasAdminRole()) {
-            return (
-                <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
-                    <LineChart data={this.state.data}>
-                        <YAxis tickFormatter={(value) => `$${value}`}/>
-                        <XAxis dataKey="month" tickMargin={10}/>
+        return (
+            <ResponsiveContainer width="100%" height="100%" aspect={25/10}>
+                <LineChart data={this.state.data}>
+                    <YAxis tickFormatter={(value) => `$${value}`}/>
+                    <XAxis dataKey="month" tickMargin={10}/>
 
-                        <CartesianGrid strokeDasharray="3 3"/>
+                    <CartesianGrid strokeDasharray="3 3"/>
 
-                        <Line name="price" type="linear" dataKey="value" isAnimationActive={false}/>
+                    <Line name="price" type="linear" dataKey="value" isAnimationActive={false}/>
 
-                        <Tooltip/>
-                    </LineChart>
-                </ResponsiveContainer>
-            );
-        }
-
-        return <Redirect to="/shop"></Redirect>;
+                    <Tooltip/>
+                </LineChart>
+            </ResponsiveContainer>
+        );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isAuthenticated: state.user.isAuthenticated,
-        role: state.user.role,
-    }
-};
-
-export default connect(mapStateToProps)(ScreensInventory);
+export default ScreensInventory;

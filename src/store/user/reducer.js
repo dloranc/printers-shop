@@ -4,7 +4,7 @@ const isAuthenticatedFromStorage = JSON.parse(window.sessionStorage.getItem('is-
 const isAuthenticatedState = isAuthenticatedFromStorage !== null ? isAuthenticatedFromStorage : false;
 
 const roleFromStorage = window.sessionStorage.getItem('role');
-const roleState = roleFromStorage !== null ? roleFromStorage : 'user';
+const roleState = roleFromStorage !== null ? roleFromStorage : 'visitor';
 
 const defaultState = {
     isAuthenticated: isAuthenticatedState,
@@ -16,9 +16,11 @@ function user(state = defaultState, action) {
         case AUTHENTICATE:
             return Object.assign({}, state, { isAuthenticated: true });
         case LOGOUT:
-                return Object.assign({}, state, { isAuthenticated: false });
+            window.sessionStorage.setItem('is-authenticated', 'false');
+            window.sessionStorage.setItem('role', 'visitor');
+            return Object.assign({}, state, { role: 'visitor', isAuthenticated: false });
         case SET_ROLE:
-                return Object.assign({}, state, { role: action.role });
+            return Object.assign({}, state, { role: action.role });
         default:
             return state;
     }

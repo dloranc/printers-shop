@@ -7,17 +7,17 @@ import Navbar from './../NavBar';
 
 class NavBarContainer extends React.Component {
     handleLogout = () => {
-        window.sessionStorage.setItem('is-authenticated', 'false');
-        this.props.logout();
-        this.props.history.push('/');
+        const { logout, history: { push } } = this.props
+        logout();
+        push('/');
     }
 
     render() {
+        const { logout } = this.props
+
         return (
             <Navbar
-                isAuthenticated={this.props.isAuthenticated}
-                role={this.props.role}
-                logout={this.props.logout}
+                logout={logout}
                 onLogout={this.handleLogout}
                 {...this.props}
             />
@@ -25,15 +25,8 @@ class NavBarContainer extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isAuthenticated: state.user.isAuthenticated,
-        role: state.user.role,
-    }
-};
-
 const withRedux = connect(
-    mapStateToProps,
+    null,
     { logout },
 )(NavBarContainer);
 

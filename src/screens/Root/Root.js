@@ -1,10 +1,11 @@
 import React from 'react';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import ScreensSignUpForm from '../SignUp/Form';
 import ScreensSignInForm from '../SignIn/Form';
 
+import Can from './../../components/Can/Can'
 import ScreensHome from './../Home/Home';
 import ScreensShop from '../Shop/Shop';
 import ScreensCart from '../Cart/Cart';
@@ -19,14 +20,14 @@ import Col from 'react-bootstrap/Col';
 import './routeTransition.css';
 
 const routes = [
-    { path: '/', name: 'Home', Component: ScreensHome, exact: true },
-    { path: '/sign-up', name: 'Sign up', Component: ScreensSignUpForm, exact: false },
-    { path: '/sign-in', name: 'Sign in', Component: ScreensSignInForm, exact: false },
-    { path: '/shop', name: 'Shop', Component: ScreensShop, exact: false },
-    { path: '/cart', name: 'Cart', Component: ScreensCart, exact: false },
-    { path: '/orders', name: 'Orders', Component: ScreensOrders, exact: false },
-    { path: '/inventory', name: 'Inventory', Component: ScreensInventory, exact: false },
-    { path: null, name: '404', Component: ScreensNoMatch, exact: false },
+    { path: '/', name: 'Home', Component: ScreensHome, exact: true, rule: 'home-page:visit', redirect: '/shop' },
+    { path: '/sign-up', name: 'Sign up', Component: ScreensSignUpForm, exact: false, rule: 'sign-up-page:visit', redirect: '/shop' },
+    { path: '/sign-in', name: 'Sign in', Component: ScreensSignInForm, exact: false, rule: 'sign-in-page:visit', redirect: '/shop' },
+    { path: '/shop', name: 'Shop', Component: ScreensShop, exact: false, rule: 'shop-page:visit', redirect: '/' },
+    { path: '/cart', name: 'Cart', Component: ScreensCart, exact: false, rule: 'cart-page:visit', redirect: '/' },
+    { path: '/orders', name: 'Orders', Component: ScreensOrders, exact: false, rule: 'orders-page:visit', redirect: '/' },
+    { path: '/inventory', name: 'Inventory', Component: ScreensInventory, exact: false, rule: 'inventory-page:visit', redirect: '/shop' },
+    { path: null, name: '404', Component: ScreensNoMatch, exact: false, rule: '404-page:visit', redirect: '/' },
 ]
 
 class ScreensRoot extends React.Component {
@@ -44,11 +45,15 @@ class ScreensRoot extends React.Component {
                                 unmountOnExit
                             >
                                 <Switch location={this.props.location}>
-                                    {routes.map(({ path, exact, Component }) => (
+                                    {routes.map(({ path, exact, Component, rule, redirect }) => (
                                         <Route key={path} exact={exact} path={path}>
-                                            {({ match }) => (
+                                            {() => (
                                                 <div className="page">
-                                                    <Component />
+                                                    <Can
+                                                        perform={rule}
+                                                        yes={() => <Component />}
+                                                        no={() => <Redirect to={redirect}/>}
+                                                    />
                                                 </div>
                                             )}
                                         </Route>
