@@ -7,42 +7,33 @@ import { logout } from './../../../store/user/action-creators';
 import Navbar from './../NavBar';
 
 class NavBarContainer extends React.Component {
-  static propTypes = {
-    logout: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-    role: PropTypes.string.isRequired
-  }
+    static propTypes = {
+        logout: PropTypes.func.isRequired,
+        history: PropTypes.object.isRequired,
+      }
 
-  handleLogout = () => {
-    window.sessionStorage.setItem('is-authenticated', 'false');
-    this.props.logout();
-    this.props.history.push('/');
-  }
+    handleLogout = () => {
+        const { logout, history: { push } } = this.props
+        logout();
+        push('/');
+    }
 
-  render() {
-    return (
-      <Navbar
-        isAuthenticated={this.props.isAuthenticated}
-        role={this.props.role}
-        logout={this.props.logout}
-        onLogout={this.handleLogout}
-        {...this.props}
-      />
-    );
-  }
+    render() {
+        const { logout } = this.props
+
+        return (
+            <Navbar
+                logout={logout}
+                onLogout={this.handleLogout}
+                {...this.props}
+            />
+        )
+    }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.user.isAuthenticated,
-    role: state.user.role
-  };
-};
-
 const withRedux = connect(
-  mapStateToProps,
-  { logout },
+    null,
+    { logout },
 )(NavBarContainer);
 
 export default withRouter(withRedux);

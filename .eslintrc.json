@@ -36,4 +36,10 @@
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error"
   }
+    "plugin:cypress/recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react"
+  ]
 }
