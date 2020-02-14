@@ -5,47 +5,26 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 import Can from '../Can/Can';
+import { useAuth0 } from '../../react-auth0-spa';
 
-class NavBar extends React.Component {
-    static propTypes = {
-        logout: PropTypes.func.isRequired,
-        location: PropTypes.object.isRequired,
-        onLogout: PropTypes.func.isRequired
+const NavBar = (props) => {
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
+    const isCurrentRoute = (route) => {
+        return props.location.pathname === route;
     }
 
-    isCurrentRoute = (route) => {
-        return this.props.location.pathname === route;
-    }
+    const navigationLinks = () => {
+        if (!isAuthenticated) {
+            return <Nav.Link as={Link} onClick={() => loginWithRedirect({})}>Log in</Nav.Link>
+        }
 
-    authLinks = () => {
-        return (
-            <>
-                <Nav.Link as={Link}
-                    to="/sign-up"
-                    data-cy="sign-up"
-                    active={this.isCurrentRoute('/sign-up')}
-                >
-                    Sign up
-                </Nav.Link>
-
-                <Nav.Link as={Link}
-                    to="/sign-in"
-                    data-cy="sign-in"
-                    active={this.isCurrentRoute('/sign-in')}
-                >
-                    Sign in
-                </Nav.Link>
-            </>
-        )
-    }
-
-    navigationLinks = () => {
         return (
             <>
                 <Nav.Link as={Link}
                     to="/cart"
                     data-cy="cart"
-                    active={this.isCurrentRoute('/cart')}
+                    active={isCurrentRoute('/cart')}
                 >
                     Cart
                 </Nav.Link>
@@ -53,15 +32,15 @@ class NavBar extends React.Component {
                 <Nav.Link as={Link}
                     to="/orders"
                     data-cy="orders"
-                    active={this.isCurrentRoute('/orders')}
+                    active={isCurrentRoute('/orders')}
                 >
                     Orders
                 </Nav.Link>
 
-                {this.adminLinks()}
+                {adminLinks()}
 
                 <Nav.Link
-                    onClick={this.props.onLogout}
+                    onClick={() => logout()}
                     data-cy="logout"
                 >
                     Log out
@@ -70,19 +49,19 @@ class NavBar extends React.Component {
         )
     }
 
-    adminLinks = () => {
+    const adminLinks = () => {
         return (
             <Nav.Link as={Link}
                 to="/inventory"
                 data-cy="inventory"
-                active={this.isCurrentRoute('/inventory')}
+                active={isCurrentRoute('/inventory')}
             >
                 Inventory
             </Nav.Link>
         )
     }
 
-    brandLink = route => {
+    const brandLink = route => {
         return <Navbar.Brand
             as={Link}
             to={route}
@@ -92,31 +71,31 @@ class NavBar extends React.Component {
         </Navbar.Brand>
     }
 
-    render() {
-        return (
+    return (
+        <>
             <Navbar fixed="top" bg="primary" variant="dark">
                 <Container>
                     <Can
                         perform="shop-page:visit"
-                        yes={() => this.brandLink('/shop')}
-                        no={() => this.brandLink('/')}
+                        yes={() => brandLink('/shop')}
+                        no={() => brandLink('/')}
                     />
 
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto" role="navigation">
-                            <Can
-                                perform="shop-page:visit"
-                                yes={() => this.navigationLinks()}
-                                no={() => this.authLinks()}
-                            />
+                            {navigationLinks()}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        )
-    }
+        </>
+    )
+}
+
+Navbar.propTypes = {
+    location: PropTypes.object.isRequired,
 }
 
 export default NavBar;

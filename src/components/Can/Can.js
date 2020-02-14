@@ -1,5 +1,5 @@
 import rules from "../../rbac-rules";
-import { connect } from 'react-redux';
+import { useAuth0 } from "../../react-auth0-spa.js";
 
 const check = (rules, role, action, data) => {
   const permissions = rules[role];
@@ -29,22 +29,23 @@ const check = (rules, role, action, data) => {
 
   return false;
 };
+// do something with role
+const Can = props => {
+  const { isAuthenticated, user } = useAuth0();
+  let role = 'guest';
 
-const Can = props =>
-  check(rules, props.role, props.perform, props.data)
+  if (isAuthenticated) {
+    role = user['http://localhost:3000/roles'][0];
+  }
+
+  return check(rules, role, props.perform, props.data)
     ? props.yes()
     : props.no();
+}
 
 Can.defaultProps = {
   yes: () => null,
   no: () => null
 };
 
-
-const mapStateToProps = (state) => {
-  return {
-      role: state.user.role,
-  }
-};
-
-export default connect(mapStateToProps)(Can);
+export default Can;
