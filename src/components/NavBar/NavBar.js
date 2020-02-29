@@ -3,126 +3,99 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-
 import { Link } from 'react-router-dom';
+import Can from '../Can/Can';
+import { useAuth0 } from '../../react-auth0-spa';
 
-class NavBar extends React.Component {
-  static propTypes = {
-    logout: PropTypes.func.isRequired,
-    location: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-    role: PropTypes.string.isRequired,
-    onLogout: PropTypes.func.isRequired
-  }
+const NavBar = (props) => {
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  isCurrentRoute = (route) => {
-    return this.props.location.pathname === route;
-  }
-
-  isAuthenticated = () => {
-    return this.props.isAuthenticated;
-  }
-
-  isAdmin = () => {
-    return this.props.role === 'admin';
-  }
-
-  authLinks = () => {
-    return (
-      <>
-        <Nav.Link as={Link}
-          to="/sign-up"
-          data-cy="sign-up"
-          active={this.isCurrentRoute('/sign-up')}
-        >
-          Sign up
-        </Nav.Link>
-
-        <Nav.Link as={Link}
-          to="/sign-in"
-          data-cy="sign-in"
-          active={this.isCurrentRoute('/sign-in')}
-        >
-          Sign in
-        </Nav.Link>
-      </>
-    );
-  }
-
-  navigationLinks = () => {
-    return (
-      <>
-        <Nav.Link as={Link}
-          to="/cart"
-          data-cy="cart"
-          active={this.isCurrentRoute('/cart')}
-        >
-          Cart
-        </Nav.Link>
-
-        <Nav.Link as={Link}
-          to="/orders"
-          data-cy="orders"
-          active={this.isCurrentRoute('/orders')}
-        >
-          Orders
-        </Nav.Link>
-
-        {this.adminLinks()}
-
-        <Nav.Link
-          onClick={this.props.onLogout}
-          data-cy="logout"
-        >
-          Log out
-        </Nav.Link>
-      </>
-    );
-  }
-
-  adminLinks = () => {
-    if (this.isAdmin()) {
-      return (
-        <Nav.Link as={Link}
-          to="/inventory"
-          data-cy="inventory"
-          active={this.isCurrentRoute('/inventory')}
-        >
-          Inventory
-        </Nav.Link>
-      );
+    const isCurrentRoute = (route) => {
+        return props.location.pathname === route;
     }
 
-    return null;
-  }
+    const navigationLinks = () => {
+        if (!isAuthenticated) {
+            return <Nav.Link as={Link} onClick={() => loginWithRedirect({})}>Log in</Nav.Link>
+        }
 
-  render() {
-    return (
-      <Navbar fixed="top" bg="primary" variant="dark">
-        <Container>
-          <Navbar.Brand
+        return (
+            <>
+                <Nav.Link as={Link}
+                    to="/cart"
+                    data-cy="cart"
+                    active={isCurrentRoute('/cart')}
+                >
+                    Cart
+                </Nav.Link>
+
+                <Nav.Link as={Link}
+                    to="/orders"
+                    data-cy="orders"
+                    active={isCurrentRoute('/orders')}
+                >
+                    Orders
+                </Nav.Link>
+
+                {adminLinks()}
+
+                <Nav.Link
+                    onClick={() => logout()}
+                    data-cy="logout"
+                >
+                    Log out
+                </Nav.Link>
+            </>
+        )
+    }
+
+    const adminLinks = () => {
+        return (
+            <Nav.Link as={Link}
+                to="/inventory"
+                data-cy="inventory"
+                active={isCurrentRoute('/inventory')}
+            >
+                Inventory
+            </Nav.Link>
+        )
+    }
+
+    const brandLink = route => {
+        return <Navbar.Brand
             as={Link}
-            to={this.props.isAuthenticated ? '/shop' : '/'}
+            to={route}
             data-cy="brand"
-          >
-                      Printers &amp; Faxes Shop
-          </Navbar.Brand>
+        >
+            Printers &amp; Faxes Shop
+        </Navbar.Brand>
+    }
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+    return (
+        <>
+            <Navbar fixed="top" bg="primary" variant="dark">
+                <Container>
+                    <Can
+                        perform="shop-page:visit"
+                        yes={() => brandLink('/shop')}
+                        no={() => brandLink('/')}
+                    />
 
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto" role="navigation">
-              {
-                this.isAuthenticated()
-                  ? this.navigationLinks()
-                  : this.authLinks()
-              }
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    );
-  }
+                    <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="mr-auto" role="navigation">
+                            {navigationLinks()}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </>
+    )
+}
+
+Navbar.propTypes = {
+    location: PropTypes.object.isRequired,
 }
 
 export default NavBar;

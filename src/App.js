@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NavBarContainer from './components/NavBar/Container/Container';
 import ScreensRoot from './screens/Root/Root';
 import ErrorBoundary from './ErrorBoundary';
+import history from "./utils/history";
+import { useAuth0 } from "./react-auth0-spa.js";
 
 if (process.env.NODE_ENV !== 'production') {
   const whyDidYouRender = require(
@@ -18,9 +20,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function App() {
+  const { loading } = useAuth0();
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <NavBarContainer/>
 
         <ErrorBoundary>
