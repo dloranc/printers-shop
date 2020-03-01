@@ -1,5 +1,5 @@
 {
   "domain": "dev-802efmat.auth0.com",
-  "roleUrl": "http://localhost:3000/roles",
+  "roleUrl": "https://shop-bae46.web.app/roles",
   "clientId": "qkraoW6I9AZtlxp53AoDcQuB5qvLFPsb"
 }

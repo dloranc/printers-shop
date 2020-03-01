@@ -35,7 +35,13 @@ const Can = props => {
   let role = 'guest';
 
   if (isAuthenticated) {
-    role = user['http://localhost:3000/roles'][0];
+    const domain = 'https://shop-bae46.web.app/roles';
+
+    role = 'customer';
+
+    if (user[domain]) {
+      role = user[domain][0];
+    }
   }
 
   return check(rules, role, props.perform, props.data)

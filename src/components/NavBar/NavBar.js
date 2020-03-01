@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -8,7 +7,7 @@ import Can from '../Can/Can';
 import { useAuth0 } from '../../react-auth0-spa';
 
 const NavBar = (props) => {
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    const { isAuthenticated, loginWithRedirect, user, logout } = useAuth0();
 
     const isCurrentRoute = (route) => {
         return props.location.pathname === route;
@@ -39,7 +38,12 @@ const NavBar = (props) => {
 
                 {adminLinks()}
 
+                <Navbar.Text>
+                    {user.nickname}
+                </Navbar.Text>
+
                 <Nav.Link
+                    to="/"
                     onClick={() => logout()}
                     data-cy="logout"
                 >
@@ -51,13 +55,18 @@ const NavBar = (props) => {
 
     const adminLinks = () => {
         return (
-            <Nav.Link as={Link}
-                to="/inventory"
-                data-cy="inventory"
-                active={isCurrentRoute('/inventory')}
-            >
-                Inventory
-            </Nav.Link>
+            <Can
+                perform="inventory-page:visit"
+                yes={() => (
+                    <Nav.Link as={Link}
+                        to="/inventory"
+                        data-cy="inventory"
+                        active={isCurrentRoute('/inventory')}
+                    >
+                        Inventory
+                    </Nav.Link>
+                )}
+            />
         )
     }
 
@@ -92,10 +101,6 @@ const NavBar = (props) => {
             </Navbar>
         </>
     )
-}
-
-Navbar.propTypes = {
-    location: PropTypes.object.isRequired,
 }
 
 export default NavBar;
