@@ -1,0 +1,7 @@
+.tomato {
+  $theme-colors: (
+      "primary": #FF6347,
+  );
+
+  @import "../../node_modules/bootstrap/scss/bootstrap";
+}

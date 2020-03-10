@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { addToCart } from '../../store/cart/action-creators';
 
+const isTomatoTheme = () => {
+  const theme = window.localStorage.getItem('theme');
+  return theme === 'tomato';
+}
+
 export const Button = styled.button`
   display: block;
   margin: ${props => props.center ? '0 auto' : '0'};
   margin-top: 1em;
   padding: 0.6em 1em;
   color: white;
-  background: #007bff;
+  background: ${isTomatoTheme() ? '#FF6347' : '#007bff'};
   border: 0;
 
   &[disabled] {
@@ -18,7 +23,7 @@ export const Button = styled.button`
   }
 
   :hover {
-    background: #118cff;
+    background: ${isTomatoTheme() ? '#fa2600' : '#118cff'};
   }
 `;
 

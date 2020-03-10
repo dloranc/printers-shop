@@ -10,6 +10,7 @@ import ScreensRoot from './screens/Root/Root';
 import ErrorBoundary from './ErrorBoundary';
 import history from "./utils/history";
 import { useAuth0 } from "./react-auth0-spa.js";
+import './scss/theme.scss';
 
 if (process.env.NODE_ENV !== 'production') {
   const whyDidYouRender = require(
@@ -19,12 +20,22 @@ if (process.env.NODE_ENV !== 'production') {
   whyDidYouRender(React);
 }
 
+const tomatoTheme = () => {
+  const theme = window.localStorage.getItem('theme');
+
+  if (theme === 'tomato') {
+    document.querySelector('body').classList.add('tomato');
+  }
+}
+
 function App() {
   const { loading } = useAuth0();
 
   if (loading) {
     return <div>Loading...</div>
   }
+
+  tomatoTheme();
 
   return (
     <Provider store={store}>
