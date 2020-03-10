@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import { gql } from 'apollo-boost';
 
 import Product from './../../Product/Product';
+import { client } from '../../../../utils/client';
 
 const ProductList = styled.div`
     display: grid;
@@ -10,21 +11,37 @@ const ProductList = styled.div`
     grid-gap: 1em;
 `;
 
+const query = {
+  query: gql`
+    {
+      products {
+        id,
+        type,
+        name,
+        price,
+        inStock
+      }
+    }
+  `
+}
+
 export class ProductListContainer extends Component {
     state = {
       products: []
     }
 
-    componentDidMount() {
-      axios.get('http://localhost:4000/products')
-        .then(response => {
-          this.setState({ products: response.data });
-        })
-        .catch(error => console.error(error));
+    async componentDidMount() {
+      try {
+        const response = await client.query(query);
+
+        this.setState({ products: response.data.products });
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     hasProducts = () => {
-      return this.state.products.length > 0;
+      return this.state.products.length;
     }
 
     showProducts = () => {
