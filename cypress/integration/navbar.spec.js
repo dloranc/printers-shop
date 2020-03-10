@@ -3,6 +3,17 @@ describe('navbar', () => {
     cy.logout();
   });
 
+  it('has theme button that toggles tomato class on body element',
+    () => {
+      cy.visit('/');
+
+      cy.get('[data-cy=tomato-theme-button]').click()
+      cy.get('body').should('have.class', 'tomato')
+      cy.get('[data-cy=tomato-theme-button]').click()
+      cy.get('body').not('have.class', 'tomato')
+    }
+  );
+
   it('has brand link to the /shop when the user is signed in and to / when not',
     () => {
       cy.get('[data-cy=brand]')
