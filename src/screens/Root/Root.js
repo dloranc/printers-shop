@@ -1,15 +1,16 @@
-import React from 'react';
+/* eslint-disable import/first */
+import React, { Suspense, lazy } from 'react';
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import Can from './../../components/Can/Can'
-import ScreensHome from './../Home/Home';
-import ScreensShop from '../Shop/Shop';
-import ScreensProduct from '../Product/Product';
-import ScreensCart from '../Cart/Cart';
-import ScreensOrders from '../Orders/Orders';
-import ScreensInventory from '../Inventory/Inventory';
-import ScreensNoMatch from './../NoMatch/NoMatch';
+const ScreensHome = lazy(() => import('./../Home/Home'));
+const ScreensShop = lazy(() => import('../Shop/Shop'));
+const ScreensProduct = lazy(() => import('../Product/Product'));
+const ScreensCart = lazy(() => import('../Cart/Cart'));
+const ScreensOrders = lazy(() => import('../Orders/Orders'));
+const ScreensInventory = lazy(() => import('../Inventory/Inventory'));
+const ScreensNoMatch = lazy(() => import('./../NoMatch/NoMatch'));
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -41,21 +42,23 @@ class ScreensRoot extends React.Component {
                                 mountOnEnter
                                 unmountOnExit
                             >
-                                <Switch location={this.props.location}>
-                                    {routes.map(({ path, exact, Component, rule, redirect }) => (
-                                        <Route key={path} exact={exact} path={path}>
-                                            {({ match }) => (
-                                                <div className="page">
-                                                    <Can
-                                                        perform={rule}
-                                                        yes={() => <Component match={match}/>}
-                                                        no={() => <Redirect to={redirect}/>}
-                                                    />
-                                                </div>
-                                            )}
-                                        </Route>
-                                    ))}
-                                </Switch>
+                                <Suspense fallback={<div>Loading...</div>}>
+                                    <Switch location={this.props.location}>
+                                        {routes.map(({ path, exact, Component, rule, redirect }) => (
+                                            <Route key={path} exact={exact} path={path}>
+                                                {({ match }) => (
+                                                    <div className="page">
+                                                        <Can
+                                                            perform={rule}
+                                                            yes={() => <Component match={match}/>}
+                                                            no={() => <Redirect to={redirect}/>}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </Route>
+                                        ))}
+                                    </Switch>
+                                </Suspense>
                             </CSSTransition>
                         </TransitionGroup>
                     </Col>
