@@ -7,10 +7,19 @@ describe('navbar', () => {
     () => {
       cy.visit('/');
 
+      // default theme, color should be blue
+      cy.get('nav').should('have.css', 'background-color', 'rgb(0, 123, 255)')
       cy.get('[data-cy=tomato-theme-button]').click()
+      // tomato theme, color should be red
       cy.get('body').should('have.class', 'tomato')
+      cy.get('nav').should('have.css', 'background-color', 'rgb(255, 99, 71)')
+      cy.reload()
+      cy.get('body').should('have.class', 'tomato')
+      cy.get('nav').should('have.css', 'background-color', 'rgb(255, 99, 71)')
+      // toggle tomato theme to default, color should be blue again
       cy.get('[data-cy=tomato-theme-button]').click()
       cy.get('body').not('have.class', 'tomato')
+      cy.get('nav').should('have.css', 'background-color', 'rgb(0, 123, 255)')
     }
   );
 
