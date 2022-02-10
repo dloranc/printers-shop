@@ -9,7 +9,7 @@
     "bootstrap": "^4.3.1",
     "formik": "^1.5.8",
     "graphql": "^14.5.8",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0",
